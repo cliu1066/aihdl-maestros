@@ -1,34 +1,35 @@
-# AI-HDL Challenge [X] Submission Form
+# AI-HDL Challenge 1 Submission Form
 
 ## Basic Information
-- **Submission Date**: [YYYY-MM-DD]
-- **Challenge Number**: [1/2/3]
-- **Team Name**: [Exact team name]
+- **Submission Date**: 2026-04-25
+- **Challenge Number**: 1
+- **Team Name**: Maestros
 - **Team ID**: [Assigned during registration]
 
 ## Team Members
 | Name | Role | Email | Contribution % |
 |------|------|-------|----------------|
-| [Name] | [Role] | [Email] | [%] |
-| [Name] | [Role] | [Email] | [%] |
-| [Name] | [Role] | [Email] | [%] |
+| Candice Liu | Team Lead | [candiceliu@arizona.edu] | 33.3% |
+| Daniel Onesimo Dong | Team Member | [onesimod@arizona.edu] | 33.3% |
+| April Morales | Team Member | [aprilmorales@arizona.edu] | 33.3% |
 
 ## Design Specifications Met
-- [ ] All required functionality implemented
+- [X] All required functionality implemented
 - [ ] FPGA implementation successful
 - [ ] Timing requirements met
 - [ ] Resource constraints satisfied
-- [ ] All test cases pass
+- [X] All test cases pass
 
 ## AI Tool Usage Declaration
-- **Primary AI Tool**: [Tool name and version]
-- **Total Conversation Sessions**: [Number]
+- **Primary AI Tool**: ChatGPT-4, Claude, Gemini
+- **Total Conversation Sessions**: 5+
 - **Estimated AI-Generated Code %**: [Percentage]
-- **Manual Modifications Made**: [Yes/No - describe if yes]
+- **Manual Modifications Made**: No
 
 ## Special Considerations
-- **Bonus Features Implemented**: [List any]
-- **Known Issues**: [Any limitations or bugs]
+- **Bonus Features Implemented**: Interfacing with ESP32 WiFi in addition to SPI, resort to inductive detection when no
+    WiFi detected.
+- **Known Issues**: N/A
 - **Future Improvements**: [What would you do differently]
 
 ## Verification Checklist
@@ -41,5 +42,5 @@
 ## Team Statement
 We certify that this submission represents our original work, completed according to AI-HDL rules and academic integrity guidelines. All AI interactions have been logged and submitted.
 
-**Team Representative**: [Name and signature]
-**Date**: [YYYY-MM-DD]
+**Team Representative**: Maestros
+**Date**: [2026-04-26]
