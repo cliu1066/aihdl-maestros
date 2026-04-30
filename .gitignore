@@ -120,7 +120,7 @@ ai-logs/draft_*
 Thumbs.db
 
 # IDE and editor files
-.vscode/
+# .vscode/
 .idea/
 *.swp
 *.swo
