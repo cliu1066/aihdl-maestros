@@ -1,8 +1,8 @@
 # AI-HDL Challenge 1 Submission Form
 
 ## Basic Information
-- **Submission Date**: 2026-04-25
-- **Challenge Number**: 1
+- **Submission Date**: 
+- **Challenge Number**: 2
 - **Team Name**: Maestros
 - **Team ID**: [Assigned during registration]
 
@@ -14,17 +14,17 @@
 | April Morales | Team Member | [aprilmorales@arizona.edu] | 33.3% |
 
 ## Design Specifications Met
-- [X] All required functionality implemented
+- [ ] All required functionality implemented
 - [ ] FPGA implementation successful
 - [ ] Timing requirements met
 - [ ] Resource constraints satisfied
-- [X] All test cases pass
+- [ ] All test cases pass
 
 ## AI Tool Usage Declaration
 - **Primary AI Tool**: ChatGPT-4, Claude, Gemini
 - **Total Conversation Sessions**: 5+
 - **Estimated AI-Generated Code %**: [Percentage]
-- **Manual Modifications Made**: No
+- **Manual Modifications Made**: 
 
 ## Special Considerations
 - **Bonus Features Implemented**: Interfacing with ESP32 WiFi in addition to SPI, resort to inductive detection when no
@@ -43,4 +43,4 @@
 We certify that this submission represents our original work, completed according to AI-HDL rules and academic integrity guidelines. All AI interactions have been logged and submitted.
 
 **Team Representative**: Maestros
-**Date**: [2026-04-26]
+**Date**: []
