@@ -1,0 +1,53 @@
+[OSS CAD Suite] C:\Users\moral\Desktop\Things2>iverilog -s tb_tqvp_spi_traffic2 -o traffic_sim.vvp tqvp_spi_traffic2.v tb_tqvp_spi_traffic2.v
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things2>vvp traffic_sim.vvp
+VCD info: dumpfile tqvp_spi_traffic2_tb.vcd opened for output.
+
+--- Test 1: Reset state ---
+PASS: CTRL after reset | value = 0x00000000
+PASS: WIFI_COUNT after reset | value = 0x00000000
+PASS: LIGHT_STATE after reset | value = 0x00000000
+PASS: STATUS after reset | value = 0x00000000
+PASS: user_interrupt low after reset
+PASS: uo_out idle value is 0x01
+
+--- Test 2: Enable auto mode, no demand ---
+PASS: CTRL enable + auto | value = 0x00000003
+PASS: LIGHT_STATE no demand | value = 0x00000000
+PASS: STATUS no demand | value = 0x00000000
+
+--- Test 3: WiFi count below threshold ---
+PASS: WIFI_COUNT = 5 | value = 0x00000005
+PASS: LIGHT_STATE wifi count 5 | value = 0x00000000
+PASS: STATUS wifi count 5 | value = 0x00000002
+PASS: user_interrupt low for wifi count 5
+
+--- Test 4: WiFi congestion at threshold ---
+PASS: WIFI_COUNT = 8 | value = 0x00000008
+PASS: LIGHT_STATE wifi count 8 | value = 0x00000002
+PASS: STATUS wifi congestion | value = 0x00000007
+PASS: user_interrupt high during congestion
+
+--- Test 5: Clear interrupt after congestion removed ---
+PASS: STATUS after IRQ clear | value = 0x00000000
+PASS: user_interrupt cleared
+
+--- Test 6: External loop detector input ---
+PASS: LOOP_STATUS active | value = 0x00000001
+PASS: LIGHT_STATE loop active | value = 0x00000002
+PASS: STATUS loop active | value = 0x00000006
+PASS: user_interrupt high from loop trigger
+
+--- Test 7: Auto disabled forces red light ---
+PASS: CTRL enable only | value = 0x00000001
+PASS: LIGHT_STATE auto disabled | value = 0x00000000
+
+--- Test 8: Disable system ---
+PASS: LIGHT_STATE disabled | value = 0x00000000
+PASS: ATUS disabled with wifi count 15 | value = 0x00000004
+
+--- Simulation finished ---
+ALL TESTS PASSED
+tb_tqvp_spi_traffic2.v:292: $finish called at 750 (1s)
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things2>
