@@ -1,4 +1,4 @@
-# AI Conversation Log - [Date/Session]
+# AI Conversation Log - [Session 1]
 
 ## Conversation 1: Initial Testbench Code
 **Timestamp**: 
@@ -769,7 +769,7 @@ All 28 test assertions pass. Here's a breakdown of the design:
 > File: /mnt/user-data/outputs/tqvp_dong_spi_traffic.v
 
 
-## Conversation 2: Initial Peripheral Code
+## Conversation 3: Initial Peripheral Code
 **Timestamp**: 2026-04-09 10:46:22
 **Tool**: Claude Sonnet 4.6
 **Purpose**: Clarification with generated peripheral Verilog code
@@ -917,7 +917,7 @@ So your build just needs these three files together:
 3. `spi_reg` and `synchronizer` — the TinyQV support modules from the repo
 
 
-## Conversation 2: Initial Peripheral Code
+## Conversation 4: Initial Peripheral Code
 **Timestamp**: 2026-04-09 10:47:24
 **Tool**: Claude Sonnet 4.6
 **Purpose**: Clarification with generated peripheral Verilog code
@@ -948,7 +948,7 @@ However, it's worth having one **if you want confidence** that the SPI-to-regist
 Given that your peripheral testbench already passes all 28 checks and `spi_reg` is a library module from TinyQV, you're in good shape without a wrapper testbench for submission. If you do want one later, the main thing to add is a task that bit-bangs SPI bytes onto `uio_in[6:4]` and reads back `uio_out[3]` (MISO).
 
 
-## Conversation 3: Documentation Help
+## Conversation 5: Documentation Help
 **Timestamp**: 2026-04-16 10:47:52
 **Tool**: Claude Sonnet 4.6
 **Purpose**: Help with documentation (summary of design)
