@@ -1,6 +1,6 @@
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>iverilog -s tb_tqvp_spi_traffic2 -o traffic_sim.vvp tqvp_spi_traffic2.v tb_tqvp_spi_traffic2.v
+[OSS CAD Suite] C:\Users\moral\Desktop\Things2>iverilog -o sim.out -s tb_tqvp_spi_traffic2 tb_tqvp_spi_traffic2.v tqvp_spi_traffic2.v
 
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>vvp traffic_sim.vvp
+[OSS CAD Suite] C:\Users\moral\Desktop\Things2>vvp sim.out
 VCD info: dumpfile tqvp_spi_traffic2_tb.vcd opened for output.
 
 --- Test 1: Reset state ---
@@ -49,5 +49,3 @@ PASS: ATUS disabled with wifi count 15 | value = 0x00000004
 --- Simulation finished ---
 ALL TESTS PASSED
 tb_tqvp_spi_traffic2.v:292: $finish called at 750 (1s)
-
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>
