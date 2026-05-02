@@ -1,6 +1,6 @@
 `default_nettype none
 
-module tqvp_spi_traffic (
+module tqvp_spi_traffic2 (
     input         clk,
     input         rst_n,
     input  [7:0]  ui_in,
