@@ -373,7 +373,6 @@ module tb_tqvp_spi_traffic;
         $display("========================================");
         $finish;
     end
-
 endmodule
 
 `default_nettype wire

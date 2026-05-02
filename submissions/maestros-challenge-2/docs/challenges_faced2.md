@@ -1,0 +1,3 @@
+# Challenge Faced
+Some new challenges that have come up while optimizing the design is finding out what exactly we wanted to optimize and how exactly we would be able to show that optimization. As some new techology was introduced to our group, we faced a new learning curb of learning a new device to run our simulations on. Additionally, we found it a little more difficult in this phase to come up with some meeting times as the end of the semester was nearing for us. We found that through learning how to work with git more dynamically was our solution for being able to work on this project together and more remotely. 
+
