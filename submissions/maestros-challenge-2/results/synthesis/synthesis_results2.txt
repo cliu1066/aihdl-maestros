@@ -624,5 +624,3 @@ Removed 0 unused cells and 62 unused wires.
 2.26. Executing CHECK pass (checking for obvious problems).
 Checking module tqvp_spi_traffic2...
 Found and reported 0 problems.
-
-yosys>
