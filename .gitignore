@@ -56,9 +56,9 @@ webtalk*
 *.bak
 db/
 incremental_db/
-simulation/
-timing/
-testbench/
+# simulation/
+# timing/
+# testbench/
 greybox_tmp/
 
 # ModelSim
