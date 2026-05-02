@@ -1,0 +1,531 @@
+##results    # Testing and implementation results
+                
+#simulation/           # Simulation outputs
+#simulation/              # Simulation outputs
+#simulation/                  # Simulation outputs
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things>iverilog -o spi_sim.out tqvp_spi_traffic.v tb_tqvp_spi_traffic.v
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things>vvp spi_sim.out
+VCD info: dumpfile tb_tqvp_spi_traffic.vcd opened for output.
+========================================
+Starting tb_tqvp_spi_traffic
+========================================
+
+--- Test 1: reset defaults ---
+PASS: CTRL after reset got expected 0x00
+PASS: WIFI_COUNT after reset got expected 0x00
+PASS: THRESHOLD after reset got expected 0x05
+PASS: LIGHT_STATE after reset got expected 0x00
+PASS: user_interrupt after reset got expected 0
+
+--- Test 2: write CTRL and THRESHOLD ---
+PASS: CTRL programmed got expected 0x03
+PASS: THRESHOLD programmed got expected 0x06
+
+--- Test 3: WIFI_COUNT below threshold ---
+PASS: WIFI_COUNT = 3 got expected 0x03
+PASS: STATUS demand set mask 0x00000002 set
+PASS: congestion is 0 below threshold
+PASS: user_interrupt below threshold got expected 0
+PASS: LIGHT_STATE below threshold got expected 0x00
+
+--- Test 4: WIFI_COUNT above threshold ---
+PASS: WIFI_COUNT = 9 got expected 0x09
+PASS: STATUS congestion set mask 0x00000001 set
+PASS: STATUS demand set mask 0x00000002 set
+PASS: STATUS irq set mask 0x00000004 set
+PASS: user_interrupt above threshold got expected 1
+PASS: LIGHT_STATE above threshold got expected 0x02
+
+--- Test 5: clear interrupt ---
+PASS: irq_pending cleared
+PASS: user_interrupt cleared got expected 0
+
+--- Test 6: inductive loop input ---
+PASS: LOOP_STATUS vehicle present mask 0x00000001 set
+PASS: STATUS demand from loop mask 0x00000002 set
+PASS: STATUS irq from loop mask 0x00000004 set
+PASS: user_interrupt from loop got expected 1
+PASS: LIGHT_STATE from loop got expected 0x02
+PASS: user_interrupt after loop clear got expected 0
+
+--- Test 7: combined scenario ---
+PASS: combined congestion mask 0x00000001 set
+PASS: combined demand mask 0x00000002 set
+PASS: combined irq mask 0x00000004 set
+PASS: combined LIGHT_STATE got expected 0x02
+PASS: final user_interrupt got expected 0
+
+========================================
+ALL TESTS PASSED
+========================================
+tb_tqvp_spi_traffic.v:374: $finish called at 975000 (1ps)
+
+
+#synthesis/            # Synthesis reports
+#synthesis/               # Synthesis reports
+#synthesis/                  # Synthesis reports
+
+yosys> synth -top tqvp_spi_traffic
+
+7. Executing SYNTH pass.
+
+7.1. Executing HIERARCHY pass (managing design hierarchy).
+
+7.1.1. Analyzing design hierarchy..
+Top module:  \tqvp_spi_traffic
+
+7.1.2. Analyzing design hierarchy..
+Top module:  \tqvp_spi_traffic
+Removed 0 unused modules.
+
+7.2. Executing PROC pass (convert processes to netlists).
+
+7.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Removed a total of 0 dead cases.
+
+7.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 0 redundant assignments.
+Promoted 0 assignments to connections.
+
+7.2.4. Executing PROC_INIT pass (extract init attributes).
+
+7.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+7.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+
+7.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+
+7.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+
+7.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+
+7.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+7.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+7.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.5. Executing CHECK pass (checking for obvious problems).
+Checking module tqvp_spi_traffic...
+Found and reported 0 problems.
+
+7.6. Executing OPT pass (performing simple optimizations).
+
+7.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic.
+Performed a total of 0 changes.
+
+7.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.6.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7.7. Executing FSM pass (extract and optimize FSM).
+
+7.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+7.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+7.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+7.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+7.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+7.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+7.8. Executing OPT pass (performing simple optimizations).
+
+7.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic.
+Performed a total of 0 changes.
+
+7.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.8.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7.9. Executing WREDUCE pass (reducing word size of cells).
+
+7.10. Executing PEEPOPT pass (run peephole optimizers).
+
+7.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module tqvp_spi_traffic:
+  created 0 $alu and 0 $macc cells.
+
+7.13. Executing SHARE pass (SAT-based resource sharing).
+
+7.14. Executing OPT pass (performing simple optimizations).
+
+7.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic.
+Performed a total of 0 changes.
+
+7.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+7.15. Executing MEMORY pass.
+
+7.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+7.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+7.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+7.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+7.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+7.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+7.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+7.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+7.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.17. Executing OPT pass (performing simple optimizations).
+
+7.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+<suppressed ~1 debug messages>
+
+7.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.17.5. Finished fast OPT passes.
+
+7.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+7.19. Executing OPT pass (performing simple optimizations).
+
+7.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+7.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic.
+Performed a total of 0 changes.
+
+7.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.19.6. Executing OPT_SHARE pass.
+
+7.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.19.10. Finished fast OPT passes. (There is nothing left to do.)
+
+7.20. Executing TECHMAP pass (map to technology primitives).
+
+7.20.1. Executing Verilog-2005 frontend: C:\oss-cad-suite\bin\../share/yosys/techmap.v
+Parsing Verilog input from `C:\oss-cad-suite\bin\../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+7.20.2. Continuing TECHMAP pass.
+No more expansions possible.
+<suppressed ~77 debug messages>
+
+7.21. Executing OPT pass (performing simple optimizations).
+
+7.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 120 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+
+7.21.5. Finished fast OPT passes.
+
+7.22. Executing ABC pass (technology mapping using ABC).
+
+7.22.1. Extracting gate netlist of module `\tqvp_spi_traffic' to `<abc-temp-dir>/input.blif'..
+
+7.22.1.1. Executed ABC.
+Extracted 99 gates and 126 wires to a netlist network with 27 inputs and 13 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+7.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:       24
+ABC RESULTS:            ANDNOT cells:        4
+ABC RESULTS:              NAND cells:       45
+ABC RESULTS:               NOR cells:        6
+ABC RESULTS:                OR cells:        1
+ABC RESULTS:             ORNOT cells:       18
+ABC RESULTS:        internal signals:       86
+ABC RESULTS:           input signals:       27
+ABC RESULTS:          output signals:       13
+Removing temp directory.
+Removing global temp directory.
+
+7.23. Executing OPT pass (performing simple optimizations).
+
+7.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic.
+
+7.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic'.
+Computing hashes of 119 cells of `\tqvp_spi_traffic'.
+Finding duplicate cells in `\tqvp_spi_traffic'.
+Removed a total of 0 cells.
+
+7.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+7.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic..
+Removed 0 unused cells and 126 unused wires.
+<suppressed ~1 debug messages>
+
+7.23.5. Finished fast OPT passes.
+
+7.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `tqvp_spi_traffic'. Setting top module to tqvp_spi_traffic.
+
+7.24.1. Analyzing design hierarchy..
+Top module:  \tqvp_spi_traffic
+
+7.24.2. Analyzing design hierarchy..
+Top module:  \tqvp_spi_traffic
+Removed 0 unused modules.
+
+7.25. Printing statistics.
+
+=== tqvp_spi_traffic ===
+
+        +----------Local Count, excluding submodules.
+        |
+      115 wires
+      224 wire bits
+       25 public wires
+      134 public wire bits
+       11 ports
+       94 port bits
+      119 cells
+        4   $_ANDNOT_
+       24   $_AND_
+       17   $_DFFE_PN0P_
+        2   $_DFFE_PN1P_
+        2   $_DFF_PN0_
+       45   $_NAND_
+        6   $_NOR_
+       18   $_ORNOT_
+        1   $_OR_
+
+7.26. Executing CHECK pass (checking for obvious problems).
+Checking module tqvp_spi_traffic...
+Found and reported 0 problems.
+
+yosys> stat
+
+8. Printing statistics.
+
+=== tqvp_spi_traffic ===
+
+        +----------Local Count, excluding submodules.
+        |
+      115 wires
+      224 wire bits
+       25 public wires
+      134 public wire bits
+       11 ports
+       94 port bits
+      119 cells
+        4   $_ANDNOT_
+       24   $_AND_
+       17   $_DFFE_PN0P_
+        2   $_DFFE_PN1P_
+        2   $_DFF_PN0_
+       45   $_NAND_
+        6   $_NOR_
+       18   $_ORNOT_
+        1   $_OR_
