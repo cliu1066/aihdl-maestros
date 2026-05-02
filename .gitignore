@@ -18,7 +18,7 @@
 *.mcs
 *.ltx
 *.dcp
-*.rpt
+# *.rpt
 *.jou
 *.log
 *.str
