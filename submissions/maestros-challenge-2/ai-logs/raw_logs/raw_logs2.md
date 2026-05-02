@@ -249,3 +249,43 @@ wire congestion_present = ctrl_enable && wifi_count_reg[3];
 That means:
 congestion = 1 when count >= 8
 This saves even more area and power.
+
+## Conversation 4: Increased improvements
+**Timestamp**: 2026-04-18 12:13:56 
+**Tool**: CHAT-GPT4
+**Purpose**: To find how well this could improve
+**Prompt**: how much area percentage does this save?
+
+**Response**:
+Estimate: probably around 5–15% area savings for this small peripheral.
+
+Why:
+
+removed threshold_reg → saves 8 flip-flops
+reduced wifi_count_reg from 8 bits to 4 bits → saves 4 flip-flops
+removed the 8-bit comparator wifi_count_reg >= threshold_reg
+simplified congestion logic to one bit check: wifi_count_reg[3]
+
+So you saved roughly:
+
+12 flip-flops + comparator logic + threshold mux/write/read logic
+
+I would not claim a guaranteed 10% until you run Yosys before/after.
+
+Use:
+
+yosys -p "read_verilog old.v; hierarchy -check -top tqvp_spi_traffic; proc; opt; stat"
+
+and:
+
+yosys -p "read_verilog new.v; hierarchy -check -top tqvp_spi_traffic; proc; opt; stat"
+
+Compare:
+
+Number of cells
+Number of wire bits
+Number of cells by type
+
+The percent area estimate is:
+
+(old_cell_count - new_cell_count) / old_cell_count * 100%
