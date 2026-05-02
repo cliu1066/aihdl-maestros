@@ -10,7 +10,7 @@ module tqvp_spi_traffic2 (
     input  [1:0]  data_write_n,
     input  [1:0]  data_read_n,
     output [31:0] data_out,
-    output        data_ready,
+    input         data_ready,
     output        user_interrupt
 );
 
@@ -139,7 +139,6 @@ module tqvp_spi_traffic2 (
     end
 
     assign data_out       = read_data;
-    assign data_ready     = 1'b1;
     assign user_interrupt = irq_pending;
 
     // Idle outputs
@@ -150,6 +149,7 @@ module tqvp_spi_traffic2 (
         address[1:0],
         data_in[31:4],
         data_read_n,
+	data_ready,
         1'b0
     };
 
