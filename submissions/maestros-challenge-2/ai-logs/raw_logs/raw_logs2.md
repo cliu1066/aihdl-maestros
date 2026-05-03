@@ -1,7 +1,7 @@
 # AI Conversation Log - [Session 2]
 
 ## Conversation 1: Improvement Mapping
-**Timestamp**: 2026-04-16 04:13:26
+**Timestamp**: 2026-04-17 04:13:26
 **Tool**: CHAT-GPT4
 **Purpose**: Find out what improvements can be made
 
@@ -143,11 +143,11 @@ That is a clean power/area improvement with no behavior tradeoff.
 The second most useful is gating read_data with read_en.
 
 ## Conversation 2: Improvement Verification
-**Timestamp**: 2026-04-16 05:00:10
+**Timestamp**: 2026-04-17 04:54:24
 **Tool**: CHAT-GPT4
 **Purpose**: To find out how well improvements would show
 
-**Prompt**: by how mych percent does this reduce area or power?
+**Prompt**: by how much percent does this reduce area or power?
 
 **Response**: 
 A precise percent needs synthesis results before/after. From the RTL alone, the reduction is probably very small.
@@ -180,8 +180,8 @@ Number of public wire bits
 For power, Yosys alone will not give an accurate number; you would need switching activity/VCD plus a power estimation flow.
 
 ## Conversation 3: Increased improvements
-**Timestamp**: 2026-04-18 12:13:56 
-**Tool**: CHAT-GPT4
+**Timestamp**: 2026-04-19 04:39:53
+**Tool**: ChatGPT-4
 **Purpose**: To further improvements to the system
 
 **Prompt**: by how much percent does this reduce area or power?
@@ -251,7 +251,7 @@ congestion = 1 when count >= 8
 This saves even more area and power.
 
 ## Conversation 4: Increased improvements
-**Timestamp**: 2026-04-18 12:13:56 
+**Timestamp**: 2026-04-19 04:50:24
 **Tool**: CHAT-GPT4
 **Purpose**: To find how well this could improve
 **Prompt**: how much area percentage does this save?
