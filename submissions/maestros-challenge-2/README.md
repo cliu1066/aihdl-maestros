@@ -35,6 +35,6 @@
 - **Timing**: [Max frequency achieved]
 
 ## Innovation Highlights
-
+  51.89% area reduction
 
 ## Team Reflection
