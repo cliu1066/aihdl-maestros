@@ -1,51 +1,62 @@
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>iverilog -o sim.out -s tb_tqvp_spi_traffic2 tb_tqvp_spi_traffic2.v tqvp_spi_traffic2.v
-
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>vvp sim.out
-VCD info: dumpfile tqvp_spi_traffic2_tb.vcd opened for output.
+candice@LAPTOP-0MKTJKTM:~/projects/ai-hdl/test$ iverilog -o sim.out -s tb_tqvp_spi_traffic2 tb_tqvp_spi_traffic2.v tqvp_spi_traffic2.v
+candice@LAPTOP-0MKTJKTM:~/projects/ai-hdl/test$ vvp sim.out
+VCD info: dumpfile tb_tqvp_spi_traffic2.vcd opened for output.
 
 --- Test 1: Reset state ---
-PASS: CTRL after reset | value = 0x00000000
-PASS: WIFI_COUNT after reset | value = 0x00000000
-PASS: LIGHT_STATE after reset | value = 0x00000000
-PASS: STATUS after reset | value = 0x00000000
+PASS: CTRL after reset | 0x00000000
+PASS: WIFI_COUNT after reset | 0x00000000
+PASS: LIGHT_STATE after reset | 0x00000000
+PASS: STATUS after reset | 0x00000000
 PASS: user_interrupt low after reset
-PASS: uo_out idle value is 0x01
+PASS: uo_out idle = 0x01
 
 --- Test 2: Enable auto mode, no demand ---
-PASS: CTRL enable + auto | value = 0x00000003
-PASS: LIGHT_STATE no demand | value = 0x00000000
-PASS: STATUS no demand | value = 0x00000000
+PASS: CTRL enable+auto | 0x00000003
+PASS: LIGHT_STATE no demand | 0x00000000
+PASS: STATUS no demand | 0x00000000
 
---- Test 3: WiFi count below threshold ---
-PASS: WIFI_COUNT = 5 | value = 0x00000005
-PASS: LIGHT_STATE wifi count 5 | value = 0x00000000
-PASS: STATUS wifi count 5 | value = 0x00000002
-PASS: user_interrupt low for wifi count 5
+--- Test 3: WiFi count below threshold (5 < 8) ---
+PASS: WIFI_COUNT = 5 | 0x00000005
+PASS: LIGHT_STATE wifi count 5 | 0x00000000
+PASS: STATUS wifi count 5 | 0x00000002
+PASS: user_interrupt low below threshold
 
---- Test 4: WiFi congestion at threshold ---
-PASS: WIFI_COUNT = 8 | value = 0x00000008
-PASS: LIGHT_STATE wifi count 8 | value = 0x00000002
-PASS: STATUS wifi congestion | value = 0x00000007
+--- Test 4: WiFi congestion at threshold (8) ---
+PASS: WIFI_COUNT = 8 | 0x00000008
+PASS: LIGHT_STATE wifi count 8 | 0x00000002
+PASS: STATUS wifi congestion | 0x00000007
 PASS: user_interrupt high during congestion
 
 --- Test 5: Clear interrupt after congestion removed ---
-PASS: STATUS after IRQ clear | value = 0x00000000
+PASS: STATUS after IRQ clear | 0x00000000
 PASS: user_interrupt cleared
 
 --- Test 6: External loop detector input ---
-PASS: LOOP_STATUS active | value = 0x00000001
-PASS: LIGHT_STATE loop active | value = 0x00000002
-PASS: STATUS loop active | value = 0x00000006
+PASS: LOOP_STATUS active | 0x00000001
+PASS: LIGHT_STATE loop active | 0x00000002
+PASS: STATUS loop active | 0x00000006
 PASS: user_interrupt high from loop trigger
 
 --- Test 7: Auto disabled forces red light ---
-PASS: CTRL enable only | value = 0x00000001
-PASS: LIGHT_STATE auto disabled | value = 0x00000000
+PASS: CTRL enable only | 0x00000001
+PASS: LIGHT_STATE auto disabled | 0x00000000
 
 --- Test 8: Disable system ---
-PASS: LIGHT_STATE disabled | value = 0x00000000
-PASS: ATUS disabled with wifi count 15 | value = 0x00000004
+PASS: LIGHT_STATE disabled | 0x00000000
+PASS: STATUS disabled wifi 15 | 0x00000004
 
---- Simulation finished ---
+--- Test 9: THRESHOLD reserved ---
+PASS: THRESHOLD reads 0 after write | 0x00000000
+
+--- Test 10: Write truncation (0xFF -> 0x0F) ---
+PASS: WIFI_COUNT truncated to 0x0F | 0x0000000f
+
+--- Test 11: IRQ sticky while source active ---
+PASS: irq raised for count=10
+PASS: irq re-asserts while source active
+PASS: irq cleared after source removed and clear pulsed
+
+==========================================
 ALL TESTS PASSED
-tb_tqvp_spi_traffic2.v:292: $finish called at 750 (1s)
+==========================================
+tb_tqvp_spi_traffic2.v:351: $finish called at 1235 (1s)

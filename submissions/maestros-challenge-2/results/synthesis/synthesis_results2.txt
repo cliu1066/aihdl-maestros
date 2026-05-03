@@ -1,11 +1,9 @@
-[OSS CAD Suite] C:\Users\moral\Desktop\Things2>yosys
-
  /----------------------------------------------------------------------------\
  |  yosys -- Yosys Open SYnthesis Suite                                       |
  |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
  |  Distributed under an ISC-like license, type "license" to see terms        |
  \----------------------------------------------------------------------------/
- Yosys 0.64+172 (git sha1 92287d485-dirty, x86_64-w64-mingw32-g++ 13.2.1 -O3)
+ Yosys 0.64+174 (git sha1 18b832247-dirty, clang++ 18.1.3 -fPIC -O3)
 
 yosys> read_verilog tqvp_spi_traffic2.v
 
@@ -26,73 +24,92 @@ yosys> synth
 Cleaned up 0 empty switches.
 
 2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:101$17 in module tqvp_spi_traffic2.
-Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:68$14 in module tqvp_spi_traffic2.
-Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:35$1 in module tqvp_spi_traffic2.
+Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:147$27 in module tqvp_spi_traffic2.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:126$22 in module tqvp_spi_traffic2.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:97$14 in module tqvp_spi_traffic2.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:76$12 in module tqvp_spi_traffic2.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:71$10 in module tqvp_spi_traffic2.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic2.v:29$1 in module tqvp_spi_traffic2.
 Removed a total of 0 dead cases.
 
 2.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
-Removed 2 redundant assignments.
+Removed 5 redundant assignments.
 Promoted 1 assignment to connection.
 
 2.2.4. Executing PROC_INIT pass (extract init attributes).
 
 2.2.5. Executing PROC_ARST pass (detect async resets in processes).
-Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
-Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:35$1'.
+Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:126$22'.
+Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:97$14'.
+Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:76$12'.
+Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:71$10'.
+Found async reset \rst_n in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:29$1'.
 
 2.2.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
-<suppressed ~6 debug messages>
+<suppressed ~4 debug messages>
 
 2.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
-Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:101$17'.
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:147$27'.
      1/2: $2\read_data[31:0]
      2/2: $1\read_data[31:0]
-Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
-     1/3: $0\irq_pending[0:0]
-     2/3: $0\wifi_count_reg[3:0]
-     3/3: $0\ctrl_reg[1:0]
-Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:35$1'.
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:126$22'.
+     1/1: $0\irq_pending[0:0]
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:97$14'.
+     1/2: $0\loop_detect_r[0:0]
+     2/2: $0\congestion_r[0:0]
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:76$12'.
+     1/1: $0\wifi_count_reg[3:0]
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:71$10'.
+     1/1: $0\ctrl_reg[1:0]
+Creating decoders for process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:29$1'.
      1/2: $0\loop_s2[0:0]
      2/2: $0\loop_s1[0:0]
 
 2.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
-No latch inferred for signal `\tqvp_spi_traffic2.\read_data' from process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:101$17'.
+No latch inferred for signal `\tqvp_spi_traffic2.\read_data' from process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:147$27'.
 
 2.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\tqvp_spi_traffic2.\ctrl_reg' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
+Creating register for signal `\tqvp_spi_traffic2.\irq_pending' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:126$22'.
   created $adff cell `$procdff$52' with positive edge clock and positive level reset.
-Creating register for signal `\tqvp_spi_traffic2.\wifi_count_reg' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
+Creating register for signal `\tqvp_spi_traffic2.\congestion_r' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:97$14'.
   created $adff cell `$procdff$57' with positive edge clock and positive level reset.
-Creating register for signal `\tqvp_spi_traffic2.\irq_pending' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
+Creating register for signal `\tqvp_spi_traffic2.\loop_detect_r' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:97$14'.
   created $adff cell `$procdff$62' with positive edge clock and positive level reset.
-Creating register for signal `\tqvp_spi_traffic2.\loop_s1' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:35$1'.
+Creating register for signal `\tqvp_spi_traffic2.\wifi_count_reg' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:76$12'.
   created $adff cell `$procdff$67' with positive edge clock and positive level reset.
-Creating register for signal `\tqvp_spi_traffic2.\loop_s2' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:35$1'.
+Creating register for signal `\tqvp_spi_traffic2.\ctrl_reg' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:71$10'.
   created $adff cell `$procdff$72' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic2.\loop_s1' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:29$1'.
+  created $adff cell `$procdff$77' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic2.\loop_s2' using process `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:29$1'.
+  created $adff cell `$procdff$82' with positive edge clock and positive level reset.
 
 2.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
 2.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Found and cleaned up 2 empty switches in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:101$17'.
-Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:101$17'.
-Found and cleaned up 4 empty switches in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
-Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:68$14'.
-Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:35$1'.
-Cleaned up 6 empty switches.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:147$27'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:147$27'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:126$22'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:97$14'.
+Found and cleaned up 1 empty switch in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:76$12'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:76$12'.
+Found and cleaned up 1 empty switch in `\tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:71$10'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:71$10'.
+Removing empty process `tqvp_spi_traffic2.$proc$tqvp_spi_traffic2.v:29$1'.
+Cleaned up 4 empty switches.
 
 2.2.12. Executing OPT_EXPR pass (perform const folding).
 Optimizing module tqvp_spi_traffic2.
-<suppressed ~17 debug messages>
+<suppressed ~20 debug messages>
 
 2.3. Executing OPT_EXPR pass (perform const folding).
 Optimizing module tqvp_spi_traffic2.
 
 2.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 8 unused cells and 36 unused wires.
-<suppressed ~9 debug messages>
+Removed 13 unused cells and 45 unused wires.
+<suppressed ~14 debug messages>
 
 2.5. Executing CHECK pass (checking for obvious problems).
 Checking module tqvp_spi_traffic2...
@@ -107,19 +124,19 @@ Optimizing module tqvp_spi_traffic2.
 Finding identical cells in module `\tqvp_spi_traffic2'.
 Computing hashes of 34 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
-Computing hashes of 31 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 32 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
-<suppressed ~9 debug messages>
-Removed a total of 3 cells.
+<suppressed ~6 debug messages>
+Removed a total of 2 cells.
 
 2.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \tqvp_spi_traffic2..
   Creating internal representation of mux trees.
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
-    dead port 2/2 on $mux $procmux$29.
+    dead port 2/2 on $mux $procmux$39.
 Removed 1 multiplexer ports.
-<suppressed ~15 debug messages>
+<suppressed ~9 debug messages>
 
 2.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
@@ -127,7 +144,7 @@ Performed a total of 0 changes.
 
 2.6.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 30 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 31 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -135,7 +152,7 @@ Removed a total of 0 cells.
 
 2.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 0 unused cells and 4 unused wires.
+Removed 0 unused cells and 3 unused wires.
 <suppressed ~1 debug messages>
 
 2.6.8. Executing OPT_EXPR pass (perform const folding).
@@ -149,7 +166,7 @@ Running muxtree optimizer on module \tqvp_spi_traffic2..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~14 debug messages>
+<suppressed ~8 debug messages>
 
 2.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
@@ -157,7 +174,7 @@ Performed a total of 0 changes.
 
 2.6.12. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 30 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 31 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -197,7 +214,7 @@ Optimizing module tqvp_spi_traffic2.
 
 2.8.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 30 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 31 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -207,7 +224,7 @@ Running muxtree optimizer on module \tqvp_spi_traffic2..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~14 debug messages>
+<suppressed ~8 debug messages>
 
 2.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
@@ -215,23 +232,21 @@ Performed a total of 0 changes.
 
 2.8.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 30 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 31 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
 2.8.6. Executing OPT_DFF pass (perform DFF optimizations).
-Adding EN signal on $procdff$57 ($adff) from module tqvp_spi_traffic2 (D = \data_in [3:0], Q = \wifi_count_reg).
-Adding EN signal on $procdff$52 ($adff) from module tqvp_spi_traffic2 (D = \data_in [1:0], Q = \ctrl_reg).
-Adding EN signal on $procdff$62 ($adff) from module tqvp_spi_traffic2 (D = $0\irq_pending[0:0], Q = \irq_pending).
+Adding EN signal on $procdff$67 ($adff) from module tqvp_spi_traffic2 (D = \data_in [3:0], Q = \wifi_count_reg).
+Adding EN signal on $procdff$72 ($adff) from module tqvp_spi_traffic2 (D = \data_in [1:0], Q = \ctrl_reg).
 
 2.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 4 unused cells and 4 unused wires.
-<suppressed ~5 debug messages>
+Removed 2 unused cells and 2 unused wires.
+<suppressed ~3 debug messages>
 
 2.8.8. Executing OPT_EXPR pass (perform const folding).
 Optimizing module tqvp_spi_traffic2.
-<suppressed ~1 debug messages>
 
 2.8.9. Rerunning OPT passes. (Maybe there is more to do..)
 
@@ -241,7 +256,7 @@ Running muxtree optimizer on module \tqvp_spi_traffic2..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~8 debug messages>
+<suppressed ~4 debug messages>
 
 2.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
@@ -264,24 +279,20 @@ Optimizing module tqvp_spi_traffic2.
 2.8.16. Finished fast OPT passes. (There is nothing left to do.)
 
 2.9. Executing WREDUCE pass (reducing word size of cells).
-Removed top 6 bits (of 8) from mux cell tqvp_spi_traffic2.$ternary$tqvp_spi_traffic2.v:97$16 ($mux).
-Removed top 6 bits (of 8) from mux cell tqvp_spi_traffic2.$ternary$tqvp_spi_traffic2.v:119$19 ($mux).
-Removed top 1 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$23_CMP0 ($eq).
-Removed top 28 bits (of 32) from mux cell tqvp_spi_traffic2.$procmux$22 ($pmux).
-Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$24_CMP0 ($eq).
-Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$26_CMP0 ($eq).
-Removed top 28 bits (of 32) from mux cell tqvp_spi_traffic2.$procmux$32 ($mux).
-Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$40_CMP0 ($eq).
-Removed top 6 bits (of 8) from wire tqvp_spi_traffic2.$ternary$tqvp_spi_traffic2.v:119$19_Y.
+Removed top 1 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$33_CMP0 ($eq).
+Removed top 28 bits (of 32) from mux cell tqvp_spi_traffic2.$procmux$32 ($pmux).
+Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$34_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$35_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic2.$procmux$36_CMP0 ($eq).
+Removed top 28 bits (of 32) from mux cell tqvp_spi_traffic2.$procmux$42 ($mux).
 Removed top 28 bits (of 32) from wire tqvp_spi_traffic2.$2\read_data[31:0].
 Removed top 28 bits (of 32) from wire tqvp_spi_traffic2.read_data.
-Removed top 6 bits (of 8) from wire tqvp_spi_traffic2.auto_light.
 
 2.10. Executing PEEPOPT pass (run peephole optimizers).
 
 2.11. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 0 unused cells and 4 unused wires.
+Removed 0 unused cells and 2 unused wires.
 <suppressed ~1 debug messages>
 
 2.12. Executing ALUMACC pass (create $alu and $macc cells).
@@ -307,7 +318,7 @@ Running muxtree optimizer on module \tqvp_spi_traffic2..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~8 debug messages>
+<suppressed ~4 debug messages>
 
 2.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
@@ -367,7 +378,7 @@ Optimizing module tqvp_spi_traffic2.
 
 2.17.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 28 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 29 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -375,8 +386,6 @@ Removed a total of 0 cells.
 
 2.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 0 unused cells and 1 unused wires.
-<suppressed ~1 debug messages>
 
 2.17.5. Finished fast OPT passes.
 
@@ -389,7 +398,7 @@ Optimizing module tqvp_spi_traffic2.
 
 2.19.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 28 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 29 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -399,25 +408,15 @@ Running muxtree optimizer on module \tqvp_spi_traffic2..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~7 debug messages>
+<suppressed ~3 debug messages>
 
 2.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \tqvp_spi_traffic2.
-    Consolidated identical input bits for $mux cell $ternary$tqvp_spi_traffic2.v:97$16:
-      Old ports: A=2'00, B=2'10, Y=\auto_light
-      New ports: A=1'0, B=1'1, Y=\auto_light [1]
-      New connections: \auto_light [0] = 1'0
-  Optimizing cells in module \tqvp_spi_traffic2.
-    Consolidated identical input bits for $mux cell $ternary$tqvp_spi_traffic2.v:119$19:
-      Old ports: A=2'00, B=\auto_light, Y=$auto$wreduce.cc:514:run$82 [1:0]
-      New ports: A=1'0, B=\auto_light [1], Y=$auto$wreduce.cc:514:run$82 [1]
-      New connections: $auto$wreduce.cc:514:run$82 [0] = 1'0
-  Optimizing cells in module \tqvp_spi_traffic2.
-Performed a total of 2 changes.
+Performed a total of 0 changes.
 
 2.19.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 28 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 29 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -430,44 +429,13 @@ Finding unused cells or wires in module \tqvp_spi_traffic2..
 
 2.19.9. Executing OPT_EXPR pass (perform const folding).
 Optimizing module tqvp_spi_traffic2.
-<suppressed ~2 debug messages>
 
-2.19.10. Rerunning OPT passes. (Maybe there is more to do..)
-
-2.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
-Running muxtree optimizer on module \tqvp_spi_traffic2..
-  Creating internal representation of mux trees.
-  Evaluating internal representation of mux trees.
-  Analyzing evaluation results.
-Removed 0 multiplexer ports.
-<suppressed ~5 debug messages>
-
-2.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
-  Optimizing cells in module \tqvp_spi_traffic2.
-Performed a total of 0 changes.
-
-2.19.13. Executing OPT_MERGE pass (detect identical cells).
-Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 27 cells of `\tqvp_spi_traffic2'.
-Finding duplicate cells in `\tqvp_spi_traffic2'.
-Removed a total of 0 cells.
-
-2.19.14. Executing OPT_SHARE pass.
-
-2.19.15. Executing OPT_DFF pass (perform DFF optimizations).
-
-2.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
-Finding unused cells or wires in module \tqvp_spi_traffic2..
-
-2.19.17. Executing OPT_EXPR pass (perform const folding).
-Optimizing module tqvp_spi_traffic2.
-
-2.19.18. Finished fast OPT passes. (There is nothing left to do.)
+2.19.10. Finished fast OPT passes. (There is nothing left to do.)
 
 2.20. Executing TECHMAP pass (map to technology primitives).
 
-2.20.1. Executing Verilog-2005 frontend: C:\oss-cad-suite\bin\../share/yosys/techmap.v
-Parsing Verilog input from `C:\oss-cad-suite\bin\../share/yosys/techmap.v' to AST representation.
+2.20.1. Executing Verilog-2005 frontend: /usr/local/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/local/bin/../share/yosys/techmap.v' to AST representation.
 Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
 Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
 Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
@@ -489,7 +457,6 @@ Generating RTLIL representation for module `$__div_mod_floor'.
 Generating RTLIL representation for module `\_90_divfloor'.
 Generating RTLIL representation for module `\_90_modfloor'.
 Generating RTLIL representation for module `\_90_pow'.
-Generating RTLIL representation for module `\_90_pmux'.
 Generating RTLIL representation for module `\_90_demux'.
 Generating RTLIL representation for module `\_90_lut'.
 Generating RTLIL representation for module `$connect'.
@@ -497,21 +464,21 @@ Generating RTLIL representation for module `$input_port'.
 Successfully finished Verilog frontend.
 
 2.20.2. Continuing TECHMAP pass.
-Using extmapper simplemap for cells of type $reduce_bool.
 Using extmapper simplemap for cells of type $adffe.
-Using extmapper simplemap for cells of type $reduce_and.
+Using extmapper simplemap for cells of type $ne.
 Using extmapper simplemap for cells of type $logic_and.
 Using extmapper simplemap for cells of type $logic_or.
-Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $not.
 Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $or.
 Using extmapper simplemap for cells of type $eq.
-Using template $paramod$95ab7b964273918a033d1324366ecc612d202989\_90_pmux for cells of type $pmux.
-Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $pmux.
 Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $mux.
 Using extmapper simplemap for cells of type $adff.
-Using extmapper simplemap for cells of type $reduce_or.
 No more expansions possible.
-<suppressed ~128 debug messages>
+<suppressed ~106 debug messages>
 
 2.21. Executing OPT pass (performing simple optimizations).
 
@@ -521,20 +488,20 @@ Optimizing module tqvp_spi_traffic2.
 
 2.21.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 86 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 88 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
-Computing hashes of 79 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 82 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
-Computing hashes of 78 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 81 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
-<suppressed ~24 debug messages>
-Removed a total of 8 cells.
+<suppressed ~21 debug messages>
+Removed a total of 7 cells.
 
 2.21.3. Executing OPT_DFF pass (perform DFF optimizations).
 
 2.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 0 unused cells and 52 unused wires.
+Removed 0 unused cells and 34 unused wires.
 <suppressed ~1 debug messages>
 
 2.21.5. Finished fast OPT passes.
@@ -544,9 +511,11 @@ Removed 0 unused cells and 52 unused wires.
 2.22.1. Extracting gate netlist of module `\tqvp_spi_traffic2' to `<abc-temp-dir>/input.blif'..
 
 2.22.1.1. Executed ABC.
-Extracted 69 gates and 88 wires to a netlist network with 17 inputs and 8 outputs.
+Extracted 70 gates and 89 wires to a netlist network with 18 inputs and 8 outputs.
 Running ABC script: <abc-temp-dir>/abc.script
-ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: UC Berkeley, ABC 1.01 (compiled Apr 30 2026 11:00:08)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
 ABC: + read_blif <abc-temp-dir>/input.blif
 ABC: + read_library <abc-temp-dir>/stdcells.genlib
 ABC: + strash
@@ -563,16 +532,18 @@ ABC: + &dch -f
 ABC: + &nf
 ABC: + &put
 ABC: + write_blif <abc-temp-dir>/output.blif
+ABC:
+ABC: YOSYS_ABC_DONE
 
 2.22.1.2. Re-integrating ABC results.
-ABC RESULTS:               AND cells:       17
-ABC RESULTS:            ANDNOT cells:        3
+ABC RESULTS:               AND cells:       18
+ABC RESULTS:            ANDNOT cells:        4
 ABC RESULTS:              NAND cells:       18
-ABC RESULTS:               NOR cells:        3
-ABC RESULTS:                OR cells:        4
+ABC RESULTS:               NOR cells:        5
+ABC RESULTS:                OR cells:        2
 ABC RESULTS:             ORNOT cells:        1
 ABC RESULTS:        internal signals:       63
-ABC RESULTS:           input signals:       17
+ABC RESULTS:           input signals:       18
 ABC RESULTS:          output signals:        8
 Removing temp directory.
 Removing global temp directory.
@@ -584,7 +555,7 @@ Optimizing module tqvp_spi_traffic2.
 
 2.23.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\tqvp_spi_traffic2'.
-Computing hashes of 55 cells of `\tqvp_spi_traffic2'.
+Computing hashes of 59 cells of `\tqvp_spi_traffic2'.
 Finding duplicate cells in `\tqvp_spi_traffic2'.
 Removed a total of 0 cells.
 
@@ -592,8 +563,8 @@ Removed a total of 0 cells.
 
 2.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \tqvp_spi_traffic2..
-Removed 0 unused cells and 62 unused wires.
-<suppressed ~6 debug messages>
+Removed 0 unused cells and 79 unused wires.
+<suppressed ~9 debug messages>
 
 2.23.5. Finished fast OPT passes.
 
@@ -605,21 +576,21 @@ Removed 0 unused cells and 62 unused wires.
 
         +----------Local Count, excluding submodules.
         |
-       66 wires
-      160 wire bits
-       24 public wires
-      118 public wire bits
+       68 wires
+      161 wire bits
+       26 public wires
+      119 public wire bits
        11 ports
        94 port bits
-       55 cells
-        3   $_ANDNOT_
-       17   $_AND_
-        7   $_DFFE_PN0P_
-        2   $_DFF_PN0_
+       59 cells
+        4   $_ANDNOT_
+       18   $_AND_
+        6   $_DFFE_PN0P_
+        5   $_DFF_PN0_
        18   $_NAND_
-        3   $_NOR_
+        5   $_NOR_
         1   $_ORNOT_
-        4   $_OR_
+        2   $_OR_
 
 2.26. Executing CHECK pass (checking for obvious problems).
 Checking module tqvp_spi_traffic2...

@@ -1141,10 +1141,10 @@ Fanout     Cap    Slew   Delay    Time   Description
                   0.11    0.16    0.93 ^ _046_/X (sky130_fd_sc_hd__o21a_2)
      1    0.02                           net15 (net)
                   0.11    0.00    0.93 ^ output15/A (sky130_fd_sc_hd__clkbuf_4)
-                  0.11    0.20    1.13 ^ output15/X (sky130_fd_sc_hd__clkbuf_4)
+                  0.11    0.20    1.12 ^ output15/X (sky130_fd_sc_hd__clkbuf_4)
      1    0.03                           data_out[0] (net)
-                  0.11    0.00    1.13 ^ data_out[0] (out)
-                                  1.13   data arrival time
+                  0.11    0.00    1.12 ^ data_out[0] (out)
+                                  1.12   data arrival time
 
                           0.00    0.00   clock clk (rise edge)
                           0.00    0.00   clock network delay (propagated)
@@ -1154,9 +1154,9 @@ Fanout     Cap    Slew   Delay    Time   Description
                                  -1.75   data required time
 -----------------------------------------------------------------------------
                                  -1.75   data required time
-                                 -1.13   data arrival time
+                                 -1.12   data arrival time
 -----------------------------------------------------------------------------
-                                  2.88   slack (MET)
+                                  2.87   slack (MET)
 
 
 Startpoint: _080_ (rising edge-triggered flip-flop clocked by clk)

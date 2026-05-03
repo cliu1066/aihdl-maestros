@@ -4,37 +4,37 @@ report_checks -unconstrained
 ===========================================================================
 ======================= Typical Corner ===================================
 
-Startpoint: _436_ (rising edge-triggered flip-flop clocked by clk')
-Endpoint: _461_ (recovery check against rising-edge clock clk)
+Startpoint: rst_n (input port clocked by clk)
+Endpoint: _076_ (recovery check against rising-edge clock clk)
 Path Group: asynchronous
 Path Type: max
 
 Fanout     Cap    Slew   Delay    Time   Description
 -----------------------------------------------------------------------------
-                  0.15    5.00    5.00   clock clk' (rise edge)
-                          0.00    5.00   clock network delay (ideal)
-                  0.15    0.00    5.00 ^ _436_/CLK (sky130_fd_sc_hd__dfxtp_2)
-                  0.19    0.48    5.48 ^ _436_/Q (sky130_fd_sc_hd__dfxtp_2)
-    11    0.04                           dut.rst_n (net)
-                  0.19    0.00    5.48 ^ _461_/RESET_B (sky130_fd_sc_hd__dfrtp_2)
-                                  5.48   data arrival time
+                  0.15    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+                  0.19    0.13    2.13 ^ rst_n (in)
+    11    0.04                           rst_n (net)
+                  0.19    0.00    2.13 ^ _076_/RESET_B (sky130_fd_sc_hd__dfrtp_2)
+                                  2.13   data arrival time
 
                   0.15   10.00   10.00   clock clk (rise edge)
                           0.00   10.00   clock network delay (ideal)
                          -0.25    9.75   clock uncertainty
                           0.00    9.75   clock reconvergence pessimism
-                                  9.75 ^ _461_/CLK (sky130_fd_sc_hd__dfrtp_2)
+                                  9.75 ^ _076_/CLK (sky130_fd_sc_hd__dfrtp_2)
                           0.21    9.96   library recovery time
                                   9.96   data required time
 -----------------------------------------------------------------------------
                                   9.96   data required time
-                                 -5.48   data arrival time
+                                 -2.13   data arrival time
 -----------------------------------------------------------------------------
-                                  4.48   slack (MET)
+                                  7.83   slack (MET)
 
 
-Startpoint: rst_n (input port clocked by clk)
-Endpoint: _436_ (rising edge-triggered flip-flop clocked by clk')
+Startpoint: address[4] (input port clocked by clk)
+Endpoint: data_out[2] (output port clocked by clk)
 Path Group: clk
 Path Type: max
 
@@ -42,24 +42,38 @@ Fanout     Cap    Slew   Delay    Time   Description
 -----------------------------------------------------------------------------
                   0.15    0.00    0.00   clock clk (rise edge)
                           0.00    0.00   clock network delay (ideal)
-                          2.00    2.00 v input external delay
-                  0.01    0.00    2.00 v rst_n (in)
-     1    0.00                           rst_n (net)
-                  0.01    0.00    2.00 v _436_/D (sky130_fd_sc_hd__dfxtp_2)
-                                  2.00   data arrival time
+                          2.00    2.00 ^ input external delay
+                  0.08    0.05    2.05 ^ address[4] (in)
+     4    0.02                           address[4] (net)
+                  0.08    0.00    2.05 ^ _039_/B (sky130_fd_sc_hd__nor2_2)
+                  0.03    0.04    2.10 v _039_/Y (sky130_fd_sc_hd__nor2_2)
+     3    0.01                           _010_ (net)
+                  0.03    0.00    2.10 v _043_/C (sky130_fd_sc_hd__and3b_2)
+                  0.06    0.23    2.33 v _043_/X (sky130_fd_sc_hd__and3b_2)
+     5    0.01                           _014_ (net)
+                  0.06    0.00    2.33 v _055_/A2 (sky130_fd_sc_hd__a22o_2)
+                  0.04    0.26    2.59 v _055_/X (sky130_fd_sc_hd__a22o_2)
+     1    0.00                           _024_ (net)
+                  0.04    0.00    2.59 v _056_/B (sky130_fd_sc_hd__and2_2)
+                  0.03    0.18    2.77 v _056_/X (sky130_fd_sc_hd__and2_2)
+     1    0.00                           _025_ (net)
+                  0.03    0.00    2.77 v _057_/A (sky130_fd_sc_hd__buf_1)
+                  0.19    0.22    2.99 v _057_/X (sky130_fd_sc_hd__buf_1)
+     1    0.03                           data_out[2] (net)
+                  0.19    0.00    2.99 v data_out[2] (out)
+                                  2.99   data arrival time
 
-                  0.15    5.00    5.00   clock clk' (rise edge)
-                          0.00    5.00   clock network delay (ideal)
-                         -0.25    4.75   clock uncertainty
-                          0.00    4.75   clock reconvergence pessimism
-                                  4.75 ^ _436_/CLK (sky130_fd_sc_hd__dfxtp_2)
-                         -0.07    4.68   library setup time
-                                  4.68   data required time
+                  0.15   10.00   10.00   clock clk (rise edge)
+                          0.00   10.00   clock network delay (ideal)
+                         -0.25    9.75   clock uncertainty
+                          0.00    9.75   clock reconvergence pessimism
+                         -2.00    7.75   output external delay
+                                  7.75   data required time
 -----------------------------------------------------------------------------
-                                  4.68   data required time
-                                 -2.00   data arrival time
+                                  7.75   data required time
+                                 -2.99   data arrival time
 -----------------------------------------------------------------------------
-                                  2.68   slack (MET)
+                                  4.76   slack (MET)
 
 
 
@@ -81,16 +95,58 @@ max fanout
 
 Pin                                   Limit Fanout  Slack
 ---------------------------------------------------------
-_436_/Q                                  10     11        (VIOLATED)
+rst_n                                    10     11        (VIOLATED)
 
 
 
 ===========================================================================
 report_parasitic_annotation -report_unannotated
 ============================================================================
-Found 352 unannotated drivers.
+Found 176 unannotated drivers.
+ address[0]
+ address[1]
+ address[2]
+ address[3]
+ address[4]
+ address[5]
  clk
- ena
+ data_in[0]
+ data_in[10]
+ data_in[11]
+ data_in[12]
+ data_in[13]
+ data_in[14]
+ data_in[15]
+ data_in[16]
+ data_in[17]
+ data_in[18]
+ data_in[19]
+ data_in[1]
+ data_in[20]
+ data_in[21]
+ data_in[22]
+ data_in[23]
+ data_in[24]
+ data_in[25]
+ data_in[26]
+ data_in[27]
+ data_in[28]
+ data_in[29]
+ data_in[2]
+ data_in[30]
+ data_in[31]
+ data_in[3]
+ data_in[4]
+ data_in[5]
+ data_in[6]
+ data_in[7]
+ data_in[8]
+ data_in[9]
+ data_read_n[0]
+ data_read_n[1]
+ data_ready
+ data_write_n[0]
+ data_write_n[1]
  rst_n
  ui_in[0]
  ui_in[1]
@@ -100,347 +156,129 @@ Found 352 unannotated drivers.
  ui_in[5]
  ui_in[6]
  ui_in[7]
- uio_in[0]
- uio_in[1]
- uio_in[2]
- uio_in[3]
- uio_in[4]
- uio_in[5]
- uio_in[6]
- uio_in[7]
- _217_/Y
- _218_/X
- _219_/X
- _220_/X
- _221_/Y
- _222_/X
- _223_/X
- _224_/X
- _225_/X
- _226_/Y
- _227_/X
- _228_/X
- _229_/Y
- _230_/X
- _231_/X
- _232_/X
- _233_/X
- _234_/Y
- _235_/X
- _236_/X
- _237_/X
- _238_/X
- _239_/Y
- _240_/X
- _241_/X
- _242_/X
- _243_/X
- _244_/X
- _245_/X
- _246_/X
- _247_/X
- _248_/X
- _249_/X
- _250_/X
- _251_/X
- _252_/X
- _253_/X
- _254_/X
- _255_/X
- _256_/X
- _257_/X
- _258_/X
- _259_/X
- _260_/X
- _261_/X
- _262_/X
- _263_/X
- _264_/X
- _265_/X
- _266_/X
- _267_/X
- _268_/X
- _269_/X
- _270_/X
- _271_/X
- _272_/X
- _273_/X
- _274_/X
- _275_/X
- _276_/X
- _277_/X
- _278_/X
- _279_/X
- _280_/X
- _281_/X
- _282_/X
- _283_/X
- _284_/X
- _285_/X
- _286_/X
- _287_/X
- _288_/X
- _289_/X
- _290_/X
- _291_/X
- _292_/X
- _293_/X
- _294_/X
- _295_/X
- _296_/X
- _297_/X
- _298_/X
- _299_/X
- _300_/X
- _301_/X
- _302_/X
- _303_/X
- _304_/X
- _305_/X
- _306_/X
- _307_/X
- _308_/X
- _309_/X
- _310_/X
- _311_/X
- _312_/X
- _313_/X
- _314_/X
- _315_/X
- _316_/X
- _317_/X
- _318_/Y
- _319_/X
- _320_/X
- _321_/X
- _322_/X
- _323_/X
- _324_/X
- _325_/X
- _326_/X
- _327_/X
- _328_/Y
- _329_/X
- _330_/X
- _331_/X
- _332_/X
- _333_/X
- _334_/X
- _335_/X
- _336_/X
- _337_/X
- _338_/X
- _339_/X
- _340_/X
- _341_/X
- _342_/X
- _343_/X
- _344_/X
- _345_/X
- _346_/X
- _347_/X
- _348_/X
- _349_/Y
- _350_/X
- _351_/X
- _352_/X
- _353_/X
- _354_/X
- _355_/X
- _356_/X
- _357_/X
- _358_/X
- _359_/X
- _360_/X
- _361_/X
- _362_/X
- _363_/X
- _364_/X
- _365_/X
- _366_/X
- _367_/X
- _368_/X
- _369_/X
- _370_/X
- _371_/X
- _372_/X
- _373_/Y
- _374_/X
- _375_/X
- _376_/X
- _377_/X
- _378_/X
- _379_/X
- _380_/X
- _381_/X
- _382_/Y
- _383_/Y
- _384_/Y
- _385_/X
- _386_/X
- _387_/Y
- _388_/X
- _389_/X
- _390_/X
- _391_/X
- _392_/Y
- _393_/X
- _394_/X
- _395_/X
- _396_/Y
- _397_/X
- _398_/X
- _399_/Y
- _400_/X
- _401_/X
- _402_/X
- _403_/Y
- _404_/X
- _405_/X
- _406_/X
- _407_/X
- _408_/X
- _409_/X
- _410_/X
- _411_/X
- _412_/Y
- _413_/X
- _414_/X
- _415_/Y
- _416_/X
- _417_/X
- _418_/X
- _419_/X
- _420_/X
- _421_/X
- _422_/X
- _423_/X
- _424_/X
- _425_/X
- _426_/X
- _427_/X
- _428_/X
- _429_/X
- _430_/Y
- _431_/X
- _432_/X
- _433_/X
- _434_/Q
- _435_/Q
- _436_/Q
- _437_/Q
- _438_/Q
- _439_/Q
- _440_/Q
- _441_/Q
- _442_/Q
- _443_/Q
- _444_/Q
- _445_/Q
- _446_/Q
- _447_/Q
- _448_/Q
- _449_/Q
- _450_/Q
- _451_/Q
- _452_/Q
- _453_/Q
- _454_/Q
- _455_/Q
- _456_/Q
- _457_/Q
- _458_/Q
- _459_/Q
- _460_/Q
- _461_/Q
- _462_/Q
- _463_/Q
- _464_/Q
- _465_/Q
- _466_/Q
- _467_/Q
- _468_/Q
- _469_/Q
- _470_/Q
- _471_/Q
- _472_/Q
- _473_/Q
- _474_/Q
- _475_/Q
- _476_/Q
- _477_/Q
- _478_/Q
- _479_/Q
- _480_/Q
- _481_/Q
- _482_/Q
- _483_/Q
- _484_/Q
- _485_/Q
- _486_/Q
- _487_/Q
- _488_/Q
- _489_/Q
- _490_/Q
- _491_/Q
- _492_/Q
- _493_/Q
- _494_/Q
- _495_/Q
- _496_/Q
- _497_/Q
- _498_/Q
- _499_/Q
- _500_/Q
- _501_/Q
- _502_/Q
- _503_/Q
- _504_/Q
- _505_/Q
- _506_/Q
- _507_/Q
- _508_/HI
- _508_/LO
- _509_/HI
- _509_/LO
- _510_/HI
- _510_/LO
- _511_/HI
- _511_/LO
- _512_/HI
- _512_/LO
- _513_/HI
- _513_/LO
- _514_/HI
- _514_/LO
- _515_/HI
- _515_/LO
- _516_/HI
- _516_/LO
- _517_/HI
- _517_/LO
- _518_/HI
- _518_/LO
- _519_/HI
- _519_/LO
- _520_/HI
- _520_/LO
- _521_/HI
- _521_/LO
- _522_/HI
- _522_/LO
- _523_/HI
- _523_/LO
- _524_/HI
- _524_/LO
- _525_/HI
- _525_/LO
- _526_/HI
- _526_/LO
- _527_/HI
- _527_/LO
- _528_/HI
- _528_/LO
+ _036_/X
+ _037_/X
+ _038_/Y
+ _039_/Y
+ _040_/X
+ _041_/X
+ _042_/Y
+ _043_/X
+ _044_/X
+ _045_/Y
+ _046_/X
+ _047_/X
+ _048_/X
+ _049_/X
+ _050_/X
+ _051_/X
+ _052_/X
+ _053_/X
+ _054_/X
+ _055_/X
+ _056_/X
+ _057_/X
+ _058_/X
+ _059_/X
+ _060_/Y
+ _061_/Y
+ _062_/X
+ _063_/Y
+ _064_/X
+ _065_/X
+ _066_/X
+ _067_/X
+ _068_/X
+ _069_/X
+ _070_/X
+ _071_/X
+ _072_/X
+ _073_/X
+ _074_/X
+ _075_/X
+ _076_/Q
+ _077_/Q
+ _078_/Q
+ _079_/Q
+ _080_/Q
+ _081_/Q
+ _082_/Q
+ _083_/Q
+ _084_/Q
+ _085_/Q
+ _086_/Q
+ _087_/HI
+ _087_/LO
+ _088_/HI
+ _088_/LO
+ _089_/HI
+ _089_/LO
+ _090_/HI
+ _090_/LO
+ _091_/HI
+ _091_/LO
+ _092_/HI
+ _092_/LO
+ _093_/HI
+ _093_/LO
+ _094_/HI
+ _094_/LO
+ _095_/HI
+ _095_/LO
+ _096_/HI
+ _096_/LO
+ _097_/HI
+ _097_/LO
+ _098_/HI
+ _098_/LO
+ _099_/HI
+ _099_/LO
+ _100_/HI
+ _100_/LO
+ _101_/HI
+ _101_/LO
+ _102_/HI
+ _102_/LO
+ _103_/HI
+ _103_/LO
+ _104_/HI
+ _104_/LO
+ _105_/HI
+ _105_/LO
+ _106_/HI
+ _106_/LO
+ _107_/HI
+ _107_/LO
+ _108_/HI
+ _108_/LO
+ _109_/HI
+ _109_/LO
+ _110_/HI
+ _110_/LO
+ _111_/HI
+ _111_/LO
+ _112_/HI
+ _112_/LO
+ _113_/HI
+ _113_/LO
+ _114_/HI
+ _114_/LO
+ _115_/HI
+ _115_/LO
+ _116_/HI
+ _116_/LO
+ _117_/HI
+ _117_/LO
+ _118_/HI
+ _118_/LO
+ _119_/HI
+ _119_/LO
+ _120_/HI
+ _120_/LO
+ _121_/HI
+ _121_/LO
+ _122_/HI
+ _122_/LO
 Found 0 partially unannotated drivers.
 
 ===========================================================================
@@ -452,20 +290,35 @@ max cap violation count 0
 ===========================================================================
 check_setup -verbose -unconstrained_endpoints -multiple_clock -no_clock -no_input_delay -loops -generated_clocks
 ===========================================================================
-Warning: There are 21 unconstrained endpoints.
-  uio_oe[0]
-  uio_oe[1]
-  uio_oe[2]
-  uio_oe[3]
-  uio_oe[4]
-  uio_oe[5]
-  uio_oe[6]
-  uio_oe[7]
-  uio_out[2]
-  uio_out[4]
-  uio_out[5]
-  uio_out[6]
-  uio_out[7]
+Warning: There are 36 unconstrained endpoints.
+  data_out[10]
+  data_out[11]
+  data_out[12]
+  data_out[13]
+  data_out[14]
+  data_out[15]
+  data_out[16]
+  data_out[17]
+  data_out[18]
+  data_out[19]
+  data_out[20]
+  data_out[21]
+  data_out[22]
+  data_out[23]
+  data_out[24]
+  data_out[25]
+  data_out[26]
+  data_out[27]
+  data_out[28]
+  data_out[29]
+  data_out[30]
+  data_out[31]
+  data_out[4]
+  data_out[5]
+  data_out[6]
+  data_out[7]
+  data_out[8]
+  data_out[9]
   uo_out[0]
   uo_out[1]
   uo_out[2]
