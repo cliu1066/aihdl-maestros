@@ -8,19 +8,19 @@
 **Prompt**: Can you help me write a testbench for the tinyQV full template risk-5 module that works in SPI communication protocol? The module is designed to work with stop lights (specifically older models based off the inductor system) and with a wifi monitor that will check for the amount of devices within range at the light and send back a count of how many wifi searching devices are at the intersection
 
 **Response**:
-# SPDX-License-Identifier: Apache-2.0
+SPDX-License-Identifier: Apache-2.0
 
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles, Timer
 from tqv import TinyQV
 
-# Change this to match the peripheral slot you use in peripherals.v
+Change this to match the peripheral slot you use in peripherals.v
 PERIPHERAL_NUM = 4
 
-# -------------------------------------------------------------------
-# Assumed register map -- update these to match your RTL
-# -------------------------------------------------------------------
+-------------------------------------------------------------------
+Assumed register map -- update these to match your RTL
+-------------------------------------------------------------------
 REG_CTRL        = 0x00
 REG_LOOP_STATUS = 0x04
 REG_WIFI_COUNT  = 0x08
@@ -28,17 +28,17 @@ REG_LIGHT_STATE = 0x0C
 REG_THRESHOLD   = 0x10
 REG_STATUS      = 0x14
 
-# CTRL bits
+CTRL bits
 CTRL_ENABLE     = 1 << 0
 CTRL_AUTO       = 1 << 1
 CTRL_IRQ_CLEAR  = 1 << 2
 
-# STATUS bits
+STATUS bits
 STATUS_CONGESTION = 1 << 0
 STATUS_DEMAND     = 1 << 1
 STATUS_IRQ        = 1 << 2
 
-# Light state encoding
+Light state encoding
 LIGHT_RED    = 0
 LIGHT_YELLOW = 1
 LIGHT_GREEN  = 2
@@ -225,7 +225,7 @@ async def test_combined_vehicle_and_wifi_scenario(dut):
     await ClockCycles(dut.clk, 4)
 
 
-## Conversation 2: Initial Peripheral Code
+Conversation 2: Initial Peripheral Code
 **Timestamp**: 2026-04-09 09:13:26
 **Tool**: Claude Sonnet 4.6
 **Purpose**: Generate basic module structure

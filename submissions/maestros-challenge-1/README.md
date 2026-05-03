@@ -38,13 +38,13 @@ inductive loop detector so the system is always managed.
 ## AI Tools Used
 - Primary LLM: ChatGPT-4, Claude, Gemini
 - Additional tools: N/A
-- Total AI interactions: 5+
+- Total AI interactions: 6
 
 ## Results Summary
 - **Functionality**: Pass
-- **FPGA Implementation**: [Success/Failure]
-- **Resource Usage**: [LUTs, FFs, DSPs used]
-- **Timing**: [Max frequency achieved]
+- **FPGA Implementation**: Success
+- **Resource Usage**: 145 cells, Area = 1448.889600 μm^2
+- **Timing**: 176.3 MHz
 
 ## Innovation Highlights
 Our solution is distinctive because it utilizes a hybrid sensing technology. Instead

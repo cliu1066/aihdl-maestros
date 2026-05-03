@@ -46,11 +46,11 @@ Thought process: Prepared comprehensive design documentation framework.
 The user wants a challenge summary write-up based on the design they've built.
 ````
 
-## Challenge Summary
+Challenge Summary
 
 This design implements a WiFi-assisted smart traffic light controller as a TinyQV RISC-V peripheral, targeting the Tiny Tapeout silicon shuttle. The peripheral bridges an ESP32 WiFi module to the RISC-V processor over a memory-mapped SPI register interface, enabling vehicle presence at an intersection to be detected wirelessly and translated into a light-change signal. The core approach treats the ESP32 as a smart sensor — it counts WiFi-connected devices (phones in vehicles) near the intersection and reports that count to the RISC-V core, which then decides whether congestion warrants a green light. When WiFi is unavailable, the system falls back transparently to a traditional inductive loop detector on `ui_in[0]`, ensuring the intersection never goes unmanaged.
 
-## Key Features
+Key Features
 
 **Feature 1 — Dual-mode vehicle detection:** The peripheral supports two independent detection paths simultaneously. WiFi-based counting via the ESP32 handles modern connected vehicles, while an inductive loop input provides a hardware fallback. Either path alone is sufficient to trigger a light change, and both can operate together.
 
@@ -60,6 +60,6 @@ This design implements a WiFi-assisted smart traffic light controller as a TinyQ
 
 **Feature 4 — Single-cycle register interface:** All reads and writes complete in one clock cycle (`data_ready` is always high), keeping the RISC-V pipeline from stalling on peripheral access.
 
-## Innovation Highlights
+Innovation Highlights
 
 The most distinctive aspect of this design is the **hybrid sensing philosophy** — instead of choosing between WiFi and inductive detection, both coexist with equal priority and independent status bits, making the system resilient to infrastructure failure without any software intervention. The threshold mechanism also reframes the detection problem: rather than asking "is a car present?" it asks "is there enough demand to justify disrupting cross-traffic?" — a more realistic model of how smart intersections should actually behave. Finally, routing the ESP32 through the RISC-V peripheral bus rather than directly controlling the lights keeps all decision logic on the processor side, making the behavior reprogrammable in software without changing any hardware.
