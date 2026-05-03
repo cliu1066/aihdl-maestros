@@ -1,0 +1,16 @@
+# AI Strategy and Usage
+
+## Tool Selection
+...
+
+## Prompting Techniques
+...
+
+## Iteration Process
+...
+
+## AI Limitations Encountered
+...
+
+## Learning from AI
+...
