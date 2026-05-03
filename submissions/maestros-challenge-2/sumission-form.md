@@ -1,4 +1,4 @@
-# AI-HDL Challenge 1 Submission Form
+# AI-HDL Challenge 2 Submission Form
 
 ## Basic Information
 - **Submission Date**: 
