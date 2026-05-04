@@ -11,7 +11,7 @@
 - **Mentor**: Harish Kumar Dharavath [harrydhara16@arizona.edu]
 
 ## Challenge Summary
-  [TO DO]
+  DP3 focuses on improving the design’s security and robustness before physical design. The challenge asks us to identify vulnerabilities, plan and implement RTL-level mitigations, validate them through normal and adversarial testing, measure any power/area/timing impact, and document the final security posture. By the milestone review, the design should have verified security features, clean regression results, a completed DP3 report, and stable RTL ready for the next design phase.
 
 ## Key Features
 - Feature 1: True SPI input from ESP32
@@ -67,7 +67,7 @@
 - **Timing**: [Max frequency achieved]
 
 ## Innovation Highlights
-  This design is practical because it is smaller and safer. It avoids large timing counters, red/yellow/green sequencing, all-red timing, minimum green timing, direct light control, and safety-critical phase transitions of the desired legacy traffic lights. Instead, the legacy traffic controller keeps responsibility for timing, while TinyQV adds a supplemental demand signal. The TinyQV peripheral enhances an existing loop-based traffic controller by adding Wi-Fi-count-based supplemental demand detection. It preserves the original inductive-loop/555-timer behavior as the primary control path and only asserts a request when the loop detector is inactive and Wi-Fi density exceeds a programmable threshold.
+  The updated TinyQV peripheral acts as a secured supplemental demand detector for an existing loop-based traffic-light controller. An ESP32 estimates nearby Wi-Fi device density and sends the count to TinyQV over SPI. TinyQV only accepts SPI updates after a valid authentication/unlock sequence, stores the Wi-Fi count, compares it against a programmable threshold, and checks the inductive loop detector. If the loop detector is inactive, the SPI session is authenticated, and the Wi-Fi count exceeds the threshold, TinyQV asserts a supplemental request or interrupt to the original 555-timer traffic-light controller. A timeout mechanism automatically clears the authenticated state if it is not refreshed, and a slower timeout tick reduces unnecessary switching power. This preserves the legacy light-timing circuitry while adding a low-power, security-aware secondary detection path.
 
 ## Team Reflection
   [TO DO]
