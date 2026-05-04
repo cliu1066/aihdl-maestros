@@ -4,14 +4,12 @@
 module tb_tqvp_spi_traffic3;
 
     // ------------------------------------------------------------
-    // DUT signals
+    // DUT interface
     // ------------------------------------------------------------
-
     reg         clk;
     reg         rst_n;
     reg  [7:0]  ui_in;
     wire [7:0]  uo_out;
-
     reg  [5:0]  address;
     reg  [31:0] data_in;
     reg  [1:0]  data_write_n;
@@ -19,39 +17,6 @@ module tb_tqvp_spi_traffic3;
     wire [31:0] data_out;
     reg         data_ready;
     wire        user_interrupt;
-
-    // ------------------------------------------------------------
-    // Register map, must match DUT
-    // ------------------------------------------------------------
-
-    localparam [3:0] REG_CTRL        = 4'd0;
-    localparam [3:0] REG_LOOP_STATUS = 4'd1;
-    localparam [3:0] REG_WIFI_COUNT  = 4'd2;
-    localparam [3:0] REG_THRESHOLD   = 4'd3;
-    localparam [3:0] REG_STATUS      = 4'd4;
-    localparam [3:0] REG_SPI_STATUS  = 4'd5;
-
-    // ------------------------------------------------------------
-    // External pin map, must match DUT
-    // ------------------------------------------------------------
-
-    localparam integer PIN_LOOP_DETECT = 0;
-    localparam integer PIN_SPI_SCK     = 1;
-    localparam integer PIN_SPI_CS_N    = 2;
-    localparam integer PIN_SPI_MOSI    = 3;
-
-    // ------------------------------------------------------------
-    // Output pin map, must match DUT
-    // ------------------------------------------------------------
-
-    localparam integer OUT_REQUEST    = 0;
-    localparam integer OUT_CONGESTION = 1;
-    localparam integer OUT_LOOP       = 2;
-    localparam integer OUT_IRQ        = 3;
-
-    // ------------------------------------------------------------
-    // Instantiate DUT
-    // ------------------------------------------------------------
 
     tqvp_spi_traffic3 dut (
         .clk(clk),
@@ -68,56 +33,94 @@ module tb_tqvp_spi_traffic3;
     );
 
     // ------------------------------------------------------------
-    // Clock generation
-    // 100 MHz simulation clock, 10 ns period
+    // Register map matching DUT
     // ------------------------------------------------------------
+    localparam [3:0] REG_CTRL        = 4'd0;
+    localparam [3:0] REG_LOOP_STATUS = 4'd1;
+    localparam [3:0] REG_WIFI_COUNT  = 4'd2;
+    localparam [3:0] REG_THRESHOLD   = 4'd3;
+    localparam [3:0] REG_STATUS      = 4'd4;
+    localparam [3:0] REG_SPI_STATUS  = 4'd5;
+    localparam [3:0] REG_SECURITY    = 4'd6;
 
+    localparam [7:0] CMD_WIFI_WRITE  = 8'hD2; // write=1, class=101, reg=2
+    localparam [7:0] CMD_CTRL_WRITE  = 8'hD0; // should be rejected by DUT
+    localparam [7:0] CMD_THRESH_WRITE= 8'hD3; // should be rejected by DUT
+    localparam [7:0] AUTH_KEY        = 8'h5C;
+
+    integer errors;
+    reg [31:0] rd;
+
+    // ------------------------------------------------------------
+    // 100 MHz test clock
+    // ------------------------------------------------------------
     initial begin
         clk = 1'b0;
         forever #5 clk = ~clk;
     end
 
     // ------------------------------------------------------------
-    // Test bookkeeping
+    // CRC8 helpers: same algorithm as DUT
     // ------------------------------------------------------------
-
-    integer errors;
-
-    task check_bit;
-        input value;
-        input expected;
-        input [255:0] name;
+    function [7:0] crc8_byte;
+        input [7:0] crc_in;
+        input [7:0] data_byte;
+        reg   [7:0] crc;
+        reg   [7:0] data;
+        integer i;
         begin
-            if (value !== expected) begin
-                $display("FAIL: %0s expected %b got %b at time %0t",
-                         name, expected, value, $time);
-                errors = errors + 1;
+            crc  = crc_in;
+            data = data_byte;
+            for (i = 0; i < 8; i = i + 1) begin
+                if ((crc[7] ^ data[7]) == 1'b1)
+                    crc = {crc[6:0], 1'b0} ^ 8'h07;
+                else
+                    crc = {crc[6:0], 1'b0};
+                data = {data[6:0], 1'b0};
+            end
+            crc8_byte = crc;
+        end
+    endfunction
+
+    function [7:0] make_tag;
+        input [7:0] cmd;
+        input [7:0] dat;
+        input [7:0] seq;
+        reg [7:0] crc;
+        begin
+            crc = 8'h00;
+            crc = crc8_byte(crc, AUTH_KEY);
+            crc = crc8_byte(crc, cmd);
+            crc = crc8_byte(crc, dat);
+            crc = crc8_byte(crc, seq);
+            make_tag = crc;
+        end
+    endfunction
+
+    // ------------------------------------------------------------
+    // Utility tasks
+    // ------------------------------------------------------------
+    task check;
+        input condition;
+        input [1023:0] msg;
+        begin
+            if (condition) begin
+                $display("PASS: %0s", msg);
             end else begin
-                $display("PASS: %0s = %b at time %0t",
-                         name, value, $time);
+                $display("FAIL: %0s at t=%0t", msg, $time);
+                errors = errors + 1;
             end
         end
     endtask
 
-    task check_4bit;
-        input [3:0] value;
-        input [3:0] expected;
-        input [255:0] name;
+    task wait_cycles;
+        input integer n;
+        integer i;
         begin
-            if (value !== expected) begin
-                $display("FAIL: %0s expected 0x%0h got 0x%0h at time %0t",
-                         name, expected, value, $time);
-                errors = errors + 1;
-            end else begin
-                $display("PASS: %0s = 0x%0h at time %0t",
-                         name, value, $time);
-            end
+            for (i = 0; i < n; i = i + 1)
+                @(posedge clk);
         end
     endtask
-
-    // ------------------------------------------------------------
-    // TinyQV bus write task
-    // ------------------------------------------------------------
 
     task bus_write;
         input [3:0] reg_addr;
@@ -128,317 +131,196 @@ module tb_tqvp_spi_traffic3;
             data_in      = value;
             data_write_n = 2'b00;
             data_read_n  = 2'b11;
-
             @(negedge clk);
             data_write_n = 2'b11;
             data_in      = 32'd0;
+            address      = 6'd0;
         end
     endtask
 
-    // ------------------------------------------------------------
-    // TinyQV bus read task
-    // ------------------------------------------------------------
-
     task bus_read;
-        input [3:0] reg_addr;
+        input  [3:0] reg_addr;
+        output [31:0] value;
         begin
             @(negedge clk);
             address      = {reg_addr, 2'b00};
             data_write_n = 2'b11;
             data_read_n  = 2'b00;
-
-            #1;
-            $display("BUS READ reg %0d = 0x%08x at time %0t",
-                     reg_addr, data_out, $time);
-
+            #1 value     = data_out;
             @(negedge clk);
-            data_read_n = 2'b11;
+            data_read_n  = 2'b11;
+            address      = 6'd0;
         end
     endtask
-
-    // ------------------------------------------------------------
-    // SPI helper tasks
-    //
-    // DUT expects SPI mode 0:
-    // CPOL = 0
-    // CPHA = 0
-    //
-    // Data is sampled on rising SCK while CS_N is low.
-    // Send MSB first.
-    // ------------------------------------------------------------
 
     task spi_send_bit;
-        input bit_value;
+        input bitval;
         begin
-            ui_in[PIN_SPI_MOSI] = bit_value;
-
-            // Keep values stable for multiple clk cycles so the DUT
-            // synchronizers can safely sample them.
-            #40;
-            ui_in[PIN_SPI_SCK] = 1'b1;
+            // SPI mode 0 style. DUT samples MOSI on synchronized rising SCK.
+            ui_in[3] = bitval;
             #80;
-            ui_in[PIN_SPI_SCK] = 1'b0;
-            #40;
+            ui_in[1] = 1'b1;
+            #80;
+            ui_in[1] = 1'b0;
+            #80;
         end
     endtask
 
-    task spi_send_byte;
-        input [7:0] byte_value;
+    task spi_send_packet_raw;
+        input [31:0] packet;
         integer i;
         begin
-            for (i = 7; i >= 0; i = i - 1) begin
-                spi_send_bit(byte_value[i]);
-            end
+            ui_in[2] = 1'b1; // CS_N idle high
+            ui_in[1] = 1'b0; // SCK low
+            ui_in[3] = 1'b0; // MOSI low
+            #200;
+            ui_in[2] = 1'b0; // CS_N active low
+            #200;
+            for (i = 31; i >= 0; i = i - 1)
+                spi_send_bit(packet[i]);
+            #200;
+            ui_in[2] = 1'b1; // CS_N inactive
+            ui_in[3] = 1'b0;
+            #300;
         end
     endtask
 
-    task spi_write_reg;
-        input [3:0] reg_addr;
-        input [7:0] value;
-        reg [7:0] cmd;
+    task spi_send_packet;
+        input [7:0] cmd;
+        input [7:0] dat;
+        input [7:0] seq;
+        input       corrupt_tag;
+        reg [7:0] tag;
+        reg [31:0] packet;
         begin
-            cmd = {4'b1000, reg_addr};
-
-            $display("SPI WRITE reg %0d <= 0x%02x at time %0t",
-                     reg_addr, value, $time);
-
-            // Assert CS_N low
-            #80;
-            ui_in[PIN_SPI_CS_N] = 1'b0;
-            ui_in[PIN_SPI_SCK]  = 1'b0;
-            #80;
-
-            spi_send_byte(cmd);
-            spi_send_byte(value);
-
-            // Deassert CS_N
-            #80;
-            ui_in[PIN_SPI_CS_N] = 1'b1;
-            ui_in[PIN_SPI_MOSI] = 1'b0;
-            ui_in[PIN_SPI_SCK]  = 1'b0;
-            #160;
+            tag = make_tag(cmd, dat, seq);
+            if (corrupt_tag)
+                tag = tag ^ 8'h01;
+            packet = {cmd, dat, seq, tag};
+            spi_send_packet_raw(packet);
         end
     endtask
 
     // ------------------------------------------------------------
-    // Wait helper
+    // Main verification sequence
     // ------------------------------------------------------------
-
-    task wait_clks;
-        input integer n;
-        integer i;
-        begin
-            for (i = 0; i < n; i = i + 1) begin
-                @(posedge clk);
-            end
-        end
-    endtask
-
-    // ------------------------------------------------------------
-    // Main test sequence
-    // ------------------------------------------------------------
-
     initial begin
         $dumpfile("tb_tqvp_spi_traffic3.vcd");
         $dumpvars(0, tb_tqvp_spi_traffic3);
 
-        errors = 0;
-
-        // Initial values
+        errors       = 0;
         rst_n        = 1'b0;
-        ui_in        = 8'd0;
+        ui_in        = 8'b0000_0100; // CS_N high, SCK low, MOSI low, loop low
         address      = 6'd0;
         data_in      = 32'd0;
         data_write_n = 2'b11;
         data_read_n  = 2'b11;
         data_ready   = 1'b0;
 
-        // SPI idle state
-        ui_in[PIN_SPI_CS_N] = 1'b1;
-        ui_in[PIN_SPI_SCK]  = 1'b0;
-        ui_in[PIN_SPI_MOSI] = 1'b0;
-
-        wait_clks(5);
+        wait_cycles(5);
         rst_n = 1'b1;
-        wait_clks(5);
+        wait_cycles(20);
 
-        $display("");
-        $display("====================================================");
-        $display("TEST 1: Reset state");
-        $display("====================================================");
+        check(uo_out[0] == 1'b0, "reset/default supplemental request is low");
+        check(user_interrupt == 1'b0, "reset/default interrupt is low");
 
-        check_bit(uo_out[OUT_REQUEST],    1'b0, "request after reset");
-        check_bit(uo_out[OUT_CONGESTION], 1'b0, "congestion after reset");
-        check_bit(uo_out[OUT_LOOP],       1'b0, "loop status after reset");
-        check_bit(uo_out[OUT_IRQ],        1'b0, "irq output after reset");
-        check_bit(user_interrupt,         1'b0, "user_interrupt after reset");
+        // Let loop-inactive filter settle with loop detector inactive.
+        wait_cycles(25);
+        bus_read(REG_LOOP_STATUS, rd);
+        check(rd[1] == 1'b1, "loop inactive stable bit eventually asserts when loop input is low");
 
-        $display("");
-        $display("====================================================");
-        $display("TEST 2: Enable controller and set threshold through SPI");
-        $display("====================================================");
+        // Bus-only configuration: enable design and set threshold.
+        bus_write(REG_CTRL, 32'h0000_0001);      // enable, level mode
+        bus_write(REG_THRESHOLD, 32'h0000_0008); // threshold = 8
+        bus_read(REG_CTRL, rd);
+        check(rd[1:0] == 2'b01, "bus can enable CTRL in level mode");
+        bus_read(REG_THRESHOLD, rd);
+        check(rd[3:0] == 4'd8, "bus can set threshold to 8");
 
-        // CTRL = 1 means enable, level-request mode
-        spi_write_reg(REG_CTRL, 8'h01);
+        // Threshold clamp test.
+        bus_write(REG_THRESHOLD, 32'h0000_0000);
+        bus_read(REG_THRESHOLD, rd);
+        check(rd[3:0] == 4'd1, "bus threshold write of 0 clamps to minimum 1");
+        bus_write(REG_THRESHOLD, 32'h0000_0008);
 
-        // Threshold = 8
-        spi_write_reg(REG_THRESHOLD, 8'h08);
+        // Valid authenticated SPI Wi-Fi count update.
+        spi_send_packet(CMD_WIFI_WRITE, 8'd10, 8'h01, 1'b0);
+        wait_cycles(6);
+        bus_read(REG_WIFI_COUNT, rd);
+        check(rd[4] == 1'b1, "valid SPI packet makes Wi-Fi reading valid");
+        check(rd[3:0] == 4'd10, "valid SPI packet updates Wi-Fi count to 10");
+        check(uo_out[1] == 1'b1, "congestion output asserts for count >= threshold");
+        check(uo_out[0] == 1'b1, "supplemental request asserts when loop inactive and Wi-Fi demand valid");
+        check(user_interrupt == 1'b1, "interrupt latches on Wi-Fi demand rising edge");
 
-        wait_clks(10);
+        // Clear IRQ while level request remains high. Edge-latched IRQ should stay clear.
+        bus_write(REG_CTRL, 32'h0000_0005); // bit0 enable=1, bit2 clear_irq=1
+        wait_cycles(4);
+        check(uo_out[0] == 1'b1, "level supplemental request remains high after IRQ clear");
+        check(user_interrupt == 1'b0, "edge-latched IRQ clears even while demand level remains high");
 
-        bus_read(REG_CTRL);
-        check_4bit(data_out[3:0], 4'h1, "CTRL register after SPI write");
+        // Invalid tag should be rejected and must not change Wi-Fi count.
+        spi_send_packet(CMD_WIFI_WRITE, 8'd12, 8'h02, 1'b1);
+        wait_cycles(6);
+        bus_read(REG_WIFI_COUNT, rd);
+        check(rd[3:0] == 4'd10, "packet with bad tag is rejected and count remains 10");
+        bus_read(REG_SECURITY, rd);
+        check(rd[16] == 1'b0, "security status reports last tag check failed");
 
-        bus_read(REG_THRESHOLD);
-        check_4bit(data_out[3:0], 4'h8, "THRESHOLD register after SPI write");
+        // Replay same sequence number should be rejected.
+        spi_send_packet(CMD_WIFI_WRITE, 8'd11, 8'h01, 1'b0);
+        wait_cycles(6);
+        bus_read(REG_WIFI_COUNT, rd);
+        check(rd[3:0] == 4'd10, "replayed sequence number is rejected");
+        bus_read(REG_SECURITY, rd);
+        check(rd[17] == 1'b0, "security status reports replayed sequence not fresh");
 
-        $display("");
-        $display("====================================================");
-        $display("TEST 3: Wi-Fi count below threshold");
-        $display("====================================================");
+        // SPI should not be able to write threshold even with a valid tag.
+        spi_send_packet(CMD_THRESH_WRITE, 8'd1, 8'h03, 1'b0);
+        wait_cycles(6);
+        bus_read(REG_THRESHOLD, rd);
+        check(rd[3:0] == 4'd8, "SPI cannot write threshold; threshold remains bus-owned");
 
-        // Wi-Fi count = 5, below threshold 8
-        spi_write_reg(REG_WIFI_COUNT, 8'h05);
-        wait_clks(10);
+        // SPI should not be able to write CTRL even with a valid tag.
+        spi_send_packet(CMD_CTRL_WRITE, 8'd0, 8'h04, 1'b0);
+        wait_cycles(6);
+        bus_read(REG_CTRL, rd);
+        check(rd[1:0] == 2'b01, "SPI cannot write CTRL; enable remains bus-owned");
 
-        bus_read(REG_WIFI_COUNT);
-        check_4bit(data_out[3:0], 4'h5, "WIFI_COUNT below threshold");
+        // Loop detector active suppresses supplemental request but congestion can remain high.
+        ui_in[0] = 1'b1; // loop detector active
+        wait_cycles(8);
+        check(uo_out[2] == 1'b1, "loop detect status follows active loop input after synchronization");
+        wait_cycles(4);
+        check(uo_out[1] == 1'b1, "congestion can remain high while loop detector is active");
+        check(uo_out[0] == 1'b0, "active loop detector suppresses supplemental Wi-Fi request");
 
-        check_bit(uo_out[OUT_CONGESTION], 1'b0, "congestion below threshold");
-        check_bit(uo_out[OUT_REQUEST],    1'b0, "request below threshold");
-        check_bit(user_interrupt,         1'b0, "interrupt below threshold");
+        // Loop inactive again; after filter delay, supplemental request returns and IRQ rises again.
+        ui_in[0] = 1'b0;
+        wait_cycles(25);
+        check(uo_out[0] == 1'b1, "supplemental request returns after loop is stably inactive");
+        check(user_interrupt == 1'b1, "new Wi-Fi demand rising edge reasserts IRQ after loop suppression ends");
+        bus_write(REG_CTRL, 32'h0000_0005); // clear IRQ again
+        wait_cycles(4);
+        check(user_interrupt == 1'b0, "IRQ clears after second demand event");
 
-        $display("");
-        $display("====================================================");
-        $display("TEST 4: Wi-Fi count above threshold, loop inactive");
-        $display("====================================================");
-
-        // Loop inactive
-        ui_in[PIN_LOOP_DETECT] = 1'b0;
-        wait_clks(5);
-
-        // Wi-Fi count = 10, above threshold 8
-        spi_write_reg(REG_WIFI_COUNT, 8'h0A);
-        wait_clks(10);
-
-        check_bit(uo_out[OUT_CONGESTION], 1'b1, "congestion above threshold");
-        check_bit(uo_out[OUT_LOOP],       1'b0, "loop inactive");
-        check_bit(uo_out[OUT_REQUEST],    1'b1, "request above threshold with loop inactive");
-        check_bit(user_interrupt,         1'b1, "interrupt latched from Wi-Fi demand");
-
-        bus_read(REG_STATUS);
-        check_bit(data_out[4], 1'b1, "STATUS supplemental_request");
-        check_bit(data_out[3], 1'b1, "STATUS irq_pending");
-        check_bit(data_out[2], 1'b0, "STATUS loop_detect");
-        check_bit(data_out[1], 1'b1, "STATUS wifi_demand");
-        check_bit(data_out[0], 1'b1, "STATUS congestion");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST 5: Loop detect active suppresses supplemental request");
-        $display("====================================================");
-
-        // Activate loop detector. Original 555/controller is assumed
-        // to handle this, so TinyQV should suppress Wi-Fi request.
-        ui_in[PIN_LOOP_DETECT] = 1'b1;
-        wait_clks(10);
-
-        check_bit(uo_out[OUT_CONGESTION], 1'b1, "congestion still true while loop active");
-        check_bit(uo_out[OUT_LOOP],       1'b1, "loop detect active");
-        check_bit(uo_out[OUT_REQUEST],    1'b0, "request suppressed while loop active");
-
-        // Interrupt is still high because it latched earlier.
-        check_bit(user_interrupt, 1'b1, "interrupt still latched before clear");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST 6: Clear interrupt while loop is active");
-        $display("====================================================");
-
-        // Write CTRL with bit[2] = 1 to clear irq.
-        // Keep enable bit set with value 0b101 = 0x5.
-        bus_write(REG_CTRL, 32'h00000005);
-        wait_clks(5);
-
-        check_bit(user_interrupt, 1'b0, "interrupt cleared");
-        check_bit(uo_out[OUT_IRQ], 1'b0, "irq output cleared");
-        check_bit(uo_out[OUT_REQUEST], 1'b0, "request remains suppressed with loop active");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST 7: Loop goes inactive again; Wi-Fi demand reasserts request");
-        $display("====================================================");
-
-        ui_in[PIN_LOOP_DETECT] = 1'b0;
-        wait_clks(10);
-
-        check_bit(uo_out[OUT_LOOP],    1'b0, "loop inactive again");
-        check_bit(uo_out[OUT_REQUEST], 1'b1, "request reasserts after loop inactive");
-        check_bit(user_interrupt,      1'b1, "interrupt reasserts after loop inactive");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST 8: Raise threshold above Wi-Fi count");
-        $display("====================================================");
-
-        // Threshold = 12, Wi-Fi count remains 10, so congestion clears.
-        spi_write_reg(REG_THRESHOLD, 8'h0C);
-        wait_clks(10);
-
-        check_bit(uo_out[OUT_CONGESTION], 1'b0, "congestion clears when threshold raised");
-        check_bit(uo_out[OUT_REQUEST],    1'b0, "request clears when threshold raised");
-
-        // Clear old interrupt.
-        bus_write(REG_CTRL, 32'h00000005);
-        wait_clks(5);
-        check_bit(user_interrupt, 1'b0, "interrupt cleared after threshold raise");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST 9: Pulse request mode");
-        $display("====================================================");
-
-        // Enable pulse mode:
-        // ctrl_reg[0] = 1 enable
-        // ctrl_reg[1] = 1 pulse mode
-        spi_write_reg(REG_CTRL, 8'h03);
-
-        // Restore threshold = 8
-        spi_write_reg(REG_THRESHOLD, 8'h08);
-
-        // Drop Wi-Fi below threshold first to create a clean rising edge later.
-        spi_write_reg(REG_WIFI_COUNT, 8'h02);
-        wait_clks(10);
-
-        check_bit(uo_out[OUT_REQUEST], 1'b0, "pulse mode request low before demand");
-
-        // Clear interrupt before pulse test.
-        // Keep pulse mode enabled: bits [1:0] = 2'b11, bit[2] = clear.
-        bus_write(REG_CTRL, 32'h00000007);
-        wait_clks(5);
-        check_bit(user_interrupt, 1'b0, "interrupt cleared before pulse test");
-
-        // Now Wi-Fi count rises above threshold.
-        spi_write_reg(REG_WIFI_COUNT, 8'h0A);
-
-        // Request should pulse high briefly.
-        wait_clks(3);
-        check_bit(uo_out[OUT_REQUEST], 1'b1, "pulse request asserted after demand edge");
-
-        // PULSE_WIDTH is 8 DUT clocks. Wait long enough for it to expire.
-        wait_clks(20);
-        check_bit(uo_out[OUT_REQUEST], 1'b0, "pulse request expired");
-        check_bit(user_interrupt,      1'b1, "interrupt latched after pulse demand");
-
-        $display("");
-        $display("====================================================");
-        $display("TEST SUMMARY");
-        $display("====================================================");
+        // Timeout expiration test. The real timeout is intentionally long, so force the
+        // internal timeout near expiration to keep simulation fast.
+        force dut.wifi_timeout = 16'd1;
+        force dut.wifi_timeout_tick_count = 8'hFF;
+        wait_cycles(1);
+        release dut.wifi_timeout;
+        release dut.wifi_timeout_tick_count;
+        wait_cycles(3);
+        bus_read(REG_WIFI_COUNT, rd);
+        check(rd[4] == 1'b0, "Wi-Fi reading becomes invalid after timeout expires");
+        check(uo_out[1] == 1'b0, "congestion clears after Wi-Fi timeout");
+        check(uo_out[0] == 1'b0, "supplemental request clears after Wi-Fi timeout");
 
         if (errors == 0) begin
-            $display("ALL TESTS PASSED");
+            $display("\nALL TESTS PASSED\n");
         end else begin
-            $display("TESTS FAILED: %0d error(s)", errors);
+            $display("\nTESTS FAILED: %0d error(s)\n", errors);
         end
 
         $finish;
