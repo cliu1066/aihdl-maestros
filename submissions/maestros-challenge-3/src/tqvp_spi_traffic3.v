@@ -104,7 +104,7 @@ module tqvp_spi_traffic3 (
     // substitute for a cryptographic MAC such as HMAC-SHA256.
     // ------------------------------------------------------------
 
-    localparam [7:0] SPI_CMD_CLASS     = 8'hA0;  // command[6:4] must be 3'b101
+    localparam [7:0] SPI_CMD_CLASS     = 8'h50;  // after mask 8'h70, command[6:4] must be 3'b101
     localparam [7:0] SPI_CMD_CLASS_MSK = 8'h70;
     localparam [7:0] SPI_AUTH_KEY      = 8'h5C;  // demo key; choose/project-configure in real use
 
