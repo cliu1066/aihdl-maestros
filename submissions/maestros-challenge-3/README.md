@@ -39,6 +39,21 @@
     - The request stays high as long as demand is present which is useful if the legacy controller expects a held demand signal.
   - Pulse request mode (This design is based here)
     - The request produces a short pulse when demand first appears which is useful if the 555/controller circuitry expects a trigger pulse instead of a held level.
+- Feature 7: Authentication / unlock requirement before accepting control writes
+  - A new security improvement is that the design should require an authentication or unlock step before accepting sensitive SPI writes. Instead of allowing any SPI packet to update the Wi-Fi count or trigger a request, the SPI side can require a valid key sequence first. This protects against accidental SPI noise or another device sending invalid traffic.
+- Feature 8: ESP32-side and local authentication 
+  - The ESP32 is responsible for higher-level authentication, while the TinyQV peripheral enforces a lightweight hardware unlock or validity check before accepting SPI updates. It is practical because TinyQV has very limited area, while the ESP32 can handle more complex security logic. 
+- Feature 9: Authenticated-session timeout 
+  - Included a timeout on the authenticated state. Instead of staying unlocked forever after one valid authentication event, the design can use a timeout counter, making the ESP32 forced to periodically refresh the trusted state. That helps prevent stale authorization from lasting indefinitely. 
+- Feature 10: Slower timeout ticking for lower power 
+  - The timeout should not count at full clock speed if avoidable, so we used a slower tick in order to reduce switching activity and save power. 
+- Feature 11: Ignore unauthenticated/default SPI traffic 
+  - Default or invalid SPI traffic should not affect the output meaning the unauthenticated SPI traffic:
+    - does not update Wi-Fi count
+    - does not update threshold
+    - does not assert request 
+- Feature 12: Loop priority also acts as a safety guard 
+  - Loop-detect priority is a safety and misuse-resistance feature. Even if Wi-Fi count is high, TinyQV cannot request service while the loop detector is active, which prevents redundant or conflicting demand requests from being sent to the legacy controller. 
 
 ## AI Tools Used
 - Primary LLM: ChatGPT-4, Claude, Gemini
