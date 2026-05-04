@@ -11,6 +11,7 @@
 - **Mentor**: Harish Kumar Dharavath [harrydhara16@arizona.edu]
 
 ## Challenge Summary
+  [TO DO]
 
 ## Key Features
 - Feature 1: True SPI input from ESP32
@@ -54,4 +55,4 @@
   This design is practical because it is smaller and safer. It avoids large timing counters, red/yellow/green sequencing, all-red timing, minimum green timing, direct light control, and safety-critical phase transitions of the desired legacy traffic lights. Instead, the legacy traffic controller keeps responsibility for timing, while TinyQV adds a supplemental demand signal. The TinyQV peripheral enhances an existing loop-based traffic controller by adding Wi-Fi-count-based supplemental demand detection. It preserves the original inductive-loop/555-timer behavior as the primary control path and only asserts a request when the loop detector is inactive and Wi-Fi density exceeds a programmable threshold.
 
 ## Team Reflection
-[TODO]
+  [TO DO]
