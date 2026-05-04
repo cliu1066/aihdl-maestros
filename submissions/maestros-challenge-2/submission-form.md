@@ -1,7 +1,7 @@
 # AI-HDL Challenge 2 Submission Form
 
 ## Basic Information
-- **Submission Date**: [2026-04-26] 
+- **Submission Date**: [2026-05-04] 
 - **Challenge Number**: 2
 - **Team Name**: Maestros
 - **Team ID**: [Assigned during registration]
@@ -28,10 +28,11 @@
     Most of the mannual modifications were small motifications with naming, formatting and minor details that AI did not generate. For the most part AI generated most of the functional code based off the prompts and designs given. 
 
 ## Special Considerations
-- **Bonus Features Implemented**: Interfacing with ESP32 WiFi in addition to SPI, resort to inductive detection when no
-    WiFi detected.
+- **Bonus Features Implemented**:
+    - Synchronizer Module: Instead of hardcoding two FF synchronizer chains inline, we utilize a reusable/portable synchronizer module.
+    - Standalone SPI Register Interface: SPI to register bridge is its own module so traffic light logic can be tested independently while SPI path can be exercised separately through the wrapper.
 - **Known Issues**: N/A
-- **Future Improvements**: Some future improvements could be to further improve the functionality to include other interfaces and not make it so specific to ESP32
+- **Future Improvements**: Implement a real SPI master FSM so the ESP32 WiFi count is fetched autonomously by the peripheral itself, using other sources of WiFi.
 
 ## Verification Checklist
 - [X] All source files compile without errors
@@ -44,4 +45,4 @@
 We certify that this submission represents our original work, completed according to AI-HDL rules and academic integrity guidelines. All AI interactions have been logged and submitted.
 
 **Team Representative**: Maestros
-**Date**: [2026-04-26] 
+**Date**: [2026-05-04] 

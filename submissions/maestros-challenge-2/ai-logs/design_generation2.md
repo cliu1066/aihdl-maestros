@@ -394,3 +394,40 @@ endmodule
 `default_nettype wire
 
 Main behavior change: WIFI_COUNT = 8 through 15 now means congestion; 0 through 7 means no congestion.
+
+## Conversation 3: Optimizing for PPA Code
+**Timestamp**: 2026-05-02 19:45:35
+**Tool**: Claude Sonnet
+**Purpose**: See the fully updated code with the fixes above for PPA optimization.
+
+**Prompt**: now give the entire updated code
+
+**Response**:
+38/38 pass. Here's a summary of every change made and why:
+
+
+Fix 1 — Registered status signals (congestion_r, loop_detect_r)
+Breaks the long combinatorial path from wifi_count_reg[3] all the way through trigger → irq_pending → user_interrupt. The testbench needed repeat(4) bumped up slightly to accommodate the extra pipeline stage — still irrelevant for a traffic light.
+
+
+Fix 2 — Explicit one-hot write decode (sel_ctrl, sel_wifi)
+Replaced the implicit case(reg_sel) write decode with named wire conditions. The synthesizer now sees unambiguous single-AND-gate enables for each register rather than inferring them from a shared priority encoder.
+
+
+Fix 3 — Split always blocks with per-register enables
+ctrl_reg and wifi_count_reg each live in their own always block with an explicit if (wen) enable. OpenLane/Yosys sees this pattern and maps it to sky130_fd_sc_hd__dlclkp clock-gate cells, stopping the registers from toggling on every cycle when no write is happening.
+
+
+Fix 5 — Single Boolean irq_pending expression
+irq_pending <= trigger | (irq_pending & ~irq_clear_now) replaces the if/else-if chain. Synthesizes to a 3-input gate instead of two mux levels.
+
+
+Fix 6 — Removed loop_detect wire alias
+loop_s2 referenced directly. One fewer net for the router to track.
+
+
+Fix 7 — 1-bit internal light state
+auto_light was an 8-bit wire feeding an 8-bit mux. Since YELLOW is never used, the output is just {24'd0, 6'd0, light_green, 1'b0} — a 1-bit select with constant padding. Eliminates the 8-bit mux entirely.
+
+File: /mnt/user-data/outputs/tqvp_spi_traffic2.v
+File: /mnt/user-data/outputs/tb_tqvp_spi_traffic2.v
