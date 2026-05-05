@@ -1,0 +1,1062 @@
+[OSS CAD Suite] C:\Users\moral\Desktop\Things3>yosys
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.64+172 (git sha1 92287d485-dirty, x86_64-w64-mingw32-g++ 13.2.1 -O3)
+
+yosys> read_verilog tqvp_spi_traffic3.v
+
+1. Executing Verilog-2005 frontend: tqvp_spi_traffic3.v
+Parsing Verilog input from `tqvp_spi_traffic3.v' to AST representation.
+Generating RTLIL representation for module `\tqvp_spi_traffic3'.
+Successfully finished Verilog frontend.
+
+yosys> synth
+
+2. Executing SYNTH pass.
+
+2.1. Executing HIERARCHY pass (managing design hierarchy).
+
+2.2. Executing PROC pass (convert processes to netlists).
+
+2.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 32 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:333$92 in module tqvp_spi_traffic3.
+Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:548$89 in module tqvp_spi_traffic3.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:534$84 in module tqvp_spi_traffic3.
+Marked 3 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:504$77 in module tqvp_spi_traffic3.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:477$71 in module tqvp_spi_traffic3.
+Marked 5 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:426$64 in module tqvp_spi_traffic3.
+Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:400$59 in module tqvp_spi_traffic3.
+Marked 2 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:389$57 in module tqvp_spi_traffic3.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:359$52 in module tqvp_spi_traffic3.
+Marked 3 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:251$33 in module tqvp_spi_traffic3.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:212$27 in module tqvp_spi_traffic3.
+Marked 3 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:177$23 in module tqvp_spi_traffic3.
+Marked 1 switch rules as full_case in process $proc$tqvp_spi_traffic3.v:162$21 in module tqvp_spi_traffic3.
+Removed a total of 0 dead cases.
+
+2.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 19 redundant assignments.
+Promoted 30 assignments to connections.
+
+2.2.4. Executing PROC_INIT pass (extract init attributes).
+
+2.2.5. Executing PROC_ARST pass (detect async resets in processes).
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:534$84'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:400$59'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:389$57'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+Found async reset \rst_n in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+
+2.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~52 debug messages>
+
+2.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+     1/32: $8\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$248
+     2/32: $7\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$244
+     3/32: $6\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$240
+     4/32: $5\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$236
+     5/32: $4\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$232
+     6/32: $3\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$228
+     7/32: $2\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$224
+     8/32: $1\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc[7:0]$220
+     9/32: $8\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$216
+    10/32: $7\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$212
+    11/32: $6\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$208
+    12/32: $5\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$204
+    13/32: $4\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$200
+    14/32: $3\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$196
+    15/32: $2\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$192
+    16/32: $1\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc[7:0]$188
+    17/32: $8\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$184
+    18/32: $7\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$180
+    19/32: $6\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$176
+    20/32: $5\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$172
+    21/32: $4\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$168
+    22/32: $3\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$164
+    23/32: $2\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$160
+    24/32: $1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156
+    25/32: $8\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$152
+    26/32: $7\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$148
+    27/32: $6\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$144
+    28/32: $5\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$140
+    29/32: $4\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$136
+    30/32: $3\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$132
+    31/32: $2\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$128
+    32/32: $1\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc[7:0]$124
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:548$89'.
+     1/2: $2\read_data[31:0]
+     2/2: $1\read_data[31:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:534$84'.
+     1/1: $0\irq_pending[0:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+     1/2: $0\wifi_demand_d[0:0]
+     2/2: $0\pulse_count[3:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+     1/3: $0\supplemental_request_level[0:0]
+     2/3: $0\wifi_demand_r[0:0]
+     3/3: $0\congestion_r[0:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+     1/4: $0\wifi_valid[0:0]
+     2/4: $0\wifi_timeout_tick_count[7:0]
+     3/4: $0\wifi_timeout[15:0]
+     4/4: $0\wifi_count_reg[3:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:400$59'.
+     1/1: $0\threshold_reg[3:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:389$57'.
+     1/1: $0\ctrl_reg[1:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+     1/6: $0\spi_last_packet_accepted[0:0]
+     2/6: $0\spi_last_cmd_ok[0:0]
+     3/6: $0\spi_last_seq_ok[0:0]
+     4/6: $0\spi_last_tag_ok[0:0]
+     5/6: $0\last_spi_seq_valid[0:0]
+     6/6: $0\last_spi_seq[7:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+     1/9: $0\spi_packet_ready[0:0]
+     2/9: $0\spi_frame_done[0:0]
+     3/9: $0\spi_write_seen[0:0]
+     4/9: $0\spi_tag_byte[7:0]
+     5/9: $0\spi_seq_byte[7:0]
+     6/9: $0\spi_data_byte[7:0]
+     7/9: $0\spi_cmd_byte[7:0]
+     8/9: $0\spi_bit_count[5:0]
+     9/9: $0\spi_shift[31:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+     1/6: $0\spi_mosi_s2[0:0]
+     2/6: $0\spi_mosi_s1[0:0]
+     3/6: $0\spi_cs_s2[0:0]
+     4/6: $0\spi_cs_s1[0:0]
+     5/6: $0\spi_sck_s2[0:0]
+     6/6: $0\spi_sck_s1[0:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+     1/2: $0\loop_inactive_stable[0:0]
+     2/2: $0\loop_inactive_count[3:0]
+Creating decoders for process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+     1/3: $0\loop_detect_sync[0:0]
+     2/3: $0\loop_s2[0:0]
+     3/3: $0\loop_s1[0:0]
+
+2.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$2.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$3.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$3.cmd' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$3.dat' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$3.seq' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\spi_expected_tag$func$tqvp_spi_traffic3.v:333$3.crc' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:323$4.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc_in' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:323$4.crc' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:323$4.data' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:323$4.i' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc_in' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.data_byte' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.data' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:324$5.i' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc_in' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.data_byte' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.crc' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.data' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:325$6.i' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.$result' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc_in' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.data_byte' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.crc' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.data' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\crc8_byte$func$tqvp_spi_traffic3.v:326$7.i' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+No latch inferred for signal `\tqvp_spi_traffic3.\read_data' from process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:548$89'.
+
+2.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\tqvp_spi_traffic3.\irq_pending' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:534$84'.
+  created $adff cell `$procdff$521' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_demand_d' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+  created $adff cell `$procdff$526' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\pulse_count' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+  created $adff cell `$procdff$531' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\congestion_r' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+  created $adff cell `$procdff$536' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_demand_r' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+  created $adff cell `$procdff$541' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\supplemental_request_level' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+  created $adff cell `$procdff$546' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_count_reg' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+  created $adff cell `$procdff$551' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_timeout' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+  created $adff cell `$procdff$556' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_timeout_tick_count' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+  created $adff cell `$procdff$561' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\wifi_valid' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+  created $adff cell `$procdff$566' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\threshold_reg' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:400$59'.
+  created $adff cell `$procdff$571' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\ctrl_reg' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:389$57'.
+  created $adff cell `$procdff$576' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\last_spi_seq' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$581' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\last_spi_seq_valid' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$586' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_last_tag_ok' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$591' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_last_seq_ok' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$596' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_last_cmd_ok' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$601' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_last_packet_accepted' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+  created $adff cell `$procdff$606' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_shift' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$611' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_bit_count' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$616' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_packet_ready' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$621' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_cmd_byte' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$626' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_data_byte' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$631' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_seq_byte' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$636' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_tag_byte' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$641' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_write_seen' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$646' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_frame_done' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+  created $adff cell `$procdff$651' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_sck_s1' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$656' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_sck_s2' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$661' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_cs_s1' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$666' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_cs_s2' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$671' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_mosi_s1' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$676' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\spi_mosi_s2' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+  created $adff cell `$procdff$681' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\loop_inactive_count' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+  created $adff cell `$procdff$686' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\loop_inactive_stable' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+  created $adff cell `$procdff$691' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\loop_s1' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+  created $adff cell `$procdff$696' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\loop_s2' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+  created $adff cell `$procdff$701' with positive edge clock and positive level reset.
+Creating register for signal `\tqvp_spi_traffic3.\loop_detect_sync' using process `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+  created $adff cell `$procdff$706' with positive edge clock and positive level reset.
+
+2.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+2.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 32 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:333$92'.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:548$89'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:548$89'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:534$84'.
+Found and cleaned up 3 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:504$77'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:477$71'.
+Found and cleaned up 4 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:426$64'.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:400$59'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:400$59'.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:389$57'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:389$57'.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:359$52'.
+Found and cleaned up 3 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:251$33'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:212$27'.
+Found and cleaned up 2 empty switches in `\tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:177$23'.
+Removing empty process `tqvp_spi_traffic3.$proc$tqvp_spi_traffic3.v:162$21'.
+Cleaned up 52 empty switches.
+
+2.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~173 debug messages>
+
+2.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 52 unused cells and 403 unused wires.
+<suppressed ~53 debug messages>
+
+2.5. Executing CHECK pass (checking for obvious problems).
+Checking module tqvp_spi_traffic3...
+Found and reported 0 problems.
+
+2.6. Executing OPT pass (performing simple optimizations).
+
+2.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 231 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 225 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 224 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+<suppressed ~21 debug messages>
+Removed a total of 7 cells.
+
+2.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$356.
+Removed 1 multiplexer ports.
+<suppressed ~137 debug messages>
+
+2.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 223 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 7 unused wires.
+<suppressed ~1 debug messages>
+
+2.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~136 debug messages>
+
+2.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 223 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+2.7. Executing FSM pass (extract and optimize FSM).
+
+2.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+2.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+2.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+2.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+2.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+2.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+2.8. Executing OPT pass (performing simple optimizations).
+
+2.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 223 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~136 debug messages>
+
+2.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 223 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $procdff$641 ($adff) from module tqvp_spi_traffic3 (D = { \spi_shift [6:0] \spi_mosi_s2 }, Q = \spi_tag_byte).
+Adding EN signal on $procdff$636 ($adff) from module tqvp_spi_traffic3 (D = \spi_shift [14:7], Q = \spi_seq_byte).
+Adding EN signal on $procdff$631 ($adff) from module tqvp_spi_traffic3 (D = \spi_shift [22:15], Q = \spi_data_byte).
+Adding EN signal on $procdff$626 ($adff) from module tqvp_spi_traffic3 (D = \spi_shift [30:23], Q = \spi_cmd_byte).
+Adding EN signal on $procdff$686 ($adff) from module tqvp_spi_traffic3 (D = $0\loop_inactive_count[3:0], Q = \loop_inactive_count).
+Adding EN signal on $procdff$616 ($adff) from module tqvp_spi_traffic3 (D = $0\spi_bit_count[5:0], Q = \spi_bit_count).
+Adding EN signal on $procdff$611 ($adff) from module tqvp_spi_traffic3 (D = $0\spi_shift[31:0], Q = \spi_shift).
+Adding EN signal on $procdff$596 ($adff) from module tqvp_spi_traffic3 (D = \spi_seq_fresh, Q = \spi_last_seq_ok).
+Adding EN signal on $procdff$591 ($adff) from module tqvp_spi_traffic3 (D = \spi_tag_ok, Q = \spi_last_tag_ok).
+Adding EN signal on $procdff$651 ($adff) from module tqvp_spi_traffic3 (D = $0\spi_frame_done[0:0], Q = \spi_frame_done).
+Adding EN signal on $procdff$586 ($adff) from module tqvp_spi_traffic3 (D = 1'1, Q = \last_spi_seq_valid).
+Adding EN signal on $procdff$581 ($adff) from module tqvp_spi_traffic3 (D = \spi_seq_byte, Q = \last_spi_seq).
+Adding EN signal on $procdff$576 ($adff) from module tqvp_spi_traffic3 (D = \data_in [1:0], Q = \ctrl_reg).
+Adding EN signal on $procdff$646 ($adff) from module tqvp_spi_traffic3 (D = \spi_shift [30], Q = \spi_write_seen).
+Adding EN signal on $procdff$571 ($adff) from module tqvp_spi_traffic3 (D = \threshold_from_bus, Q = \threshold_reg).
+Adding EN signal on $procdff$556 ($adff) from module tqvp_spi_traffic3 (D = $0\wifi_timeout[15:0], Q = \wifi_timeout).
+Adding EN signal on $procdff$551 ($adff) from module tqvp_spi_traffic3 (D = $0\wifi_count_reg[3:0], Q = \wifi_count_reg).
+Adding EN signal on $procdff$601 ($adff) from module tqvp_spi_traffic3 (D = $logic_and$tqvp_spi_traffic3.v:373$56_Y, Q = \spi_last_cmd_ok).
+Adding EN signal on $procdff$531 ($adff) from module tqvp_spi_traffic3 (D = $0\pulse_count[3:0], Q = \pulse_count).
+
+2.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 24 unused cells and 24 unused wires.
+<suppressed ~25 debug messages>
+
+2.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~8 debug messages>
+
+2.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~101 debug messages>
+
+2.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 222 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 214 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 210 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+<suppressed ~36 debug messages>
+Removed a total of 12 cells.
+
+2.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 12 unused wires.
+<suppressed ~1 debug messages>
+
+2.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.8.16. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.8.17. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~101 debug messages>
+
+2.8.18. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.8.19. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 210 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.8.20. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.8.21. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.8.22. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.8.23. Finished fast OPT passes. (There is nothing left to do.)
+
+2.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 2 bits (of 3) from port B of cell tqvp_spi_traffic3.$auto$opt_dff.cc:235:make_patterns_logic$823 ($ne).
+Removed top 1 bits (of 32) from FF cell tqvp_spi_traffic3.$auto$ff.cc:337:slice$785 ($adffe).
+Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic3.$lt$tqvp_spi_traffic3.v:146$17 ($lt).
+Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic3.$add$tqvp_spi_traffic3.v:185$26 ($add).
+Removed top 1 bits (of 6) from port B of cell tqvp_spi_traffic3.$eq$tqvp_spi_traffic3.v:272$38 ($eq).
+Removed top 5 bits (of 6) from port B of cell tqvp_spi_traffic3.$add$tqvp_spi_traffic3.v:282$39 ($add).
+Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic3.$eq$tqvp_spi_traffic3.v:374$55 ($eq).
+Removed top 15 bits (of 16) from port B of cell tqvp_spi_traffic3.$sub$tqvp_spi_traffic3.v:446$66 ($sub).
+Removed top 7 bits (of 8) from port B of cell tqvp_spi_traffic3.$add$tqvp_spi_traffic3.v:449$67 ($add).
+Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic3.$sub$tqvp_spi_traffic3.v:516$81 ($sub).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$251 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$254 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$257 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$260 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$263 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$266 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$269 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$272 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$275 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$278 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$281 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$284 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$287 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$290 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$293 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$296 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$299 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$302 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$305 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$308 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$311 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$314 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$317 ($mux).
+Removed top 5 bits (of 8) from mux cell tqvp_spi_traffic3.$procmux$320 ($mux).
+Removed top 1 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$348_CMP0 ($eq).
+Removed top 3 bits (of 32) from mux cell tqvp_spi_traffic3.$procmux$347 ($pmux).
+Removed top 1 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$349_CMP0 ($eq).
+Removed top 1 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$350_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$351_CMP0 ($eq).
+Removed top 2 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$352_CMP0 ($eq).
+Removed top 3 bits (of 4) from port B of cell tqvp_spi_traffic3.$procmux$353_CMP0 ($eq).
+Removed top 3 bits (of 32) from mux cell tqvp_spi_traffic3.$procmux$359 ($mux).
+Removed top 1 bits (of 32) from mux cell tqvp_spi_traffic3.$procmux$503 ($mux).
+Removed top 1 bits (of 32) from mux cell tqvp_spi_traffic3.$procmux$500 ($mux).
+Removed top 3 bits (of 32) from wire tqvp_spi_traffic3.$2\read_data[31:0].
+Removed top 1 bits (of 8) from wire tqvp_spi_traffic3.$5\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$172.
+Removed top 2 bits (of 8) from wire tqvp_spi_traffic3.$4\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$168.
+Removed top 3 bits (of 8) from wire tqvp_spi_traffic3.$3\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$164.
+Removed top 4 bits (of 8) from wire tqvp_spi_traffic3.$2\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$160.
+Removed top 5 bits (of 8) from wire tqvp_spi_traffic3.$1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156.
+Removed top 1 bits (of 32) from wire tqvp_spi_traffic3.$0\spi_shift[31:0].
+Removed top 1 bits (of 32) from wire tqvp_spi_traffic3.$procmux$500_Y.
+Removed top 3 bits (of 32) from wire tqvp_spi_traffic3.read_data.
+Removed top 1 bits (of 32) from wire tqvp_spi_traffic3.spi_shift.
+
+2.10. Executing PEEPOPT pass (run peephole optimizers).
+
+2.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+2.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module tqvp_spi_traffic3:
+  creating $macc model for $sub$tqvp_spi_traffic3.v:516$81 ($sub).
+  creating $macc model for $add$tqvp_spi_traffic3.v:449$67 ($add).
+  creating $macc model for $sub$tqvp_spi_traffic3.v:446$66 ($sub).
+  creating $macc model for $add$tqvp_spi_traffic3.v:282$39 ($add).
+  creating $macc model for $add$tqvp_spi_traffic3.v:185$26 ($add).
+  creating $alu model for $macc $add$tqvp_spi_traffic3.v:185$26.
+  creating $alu model for $macc $add$tqvp_spi_traffic3.v:282$39.
+  creating $alu model for $macc $sub$tqvp_spi_traffic3.v:446$66.
+  creating $alu model for $macc $add$tqvp_spi_traffic3.v:449$67.
+  creating $alu model for $macc $sub$tqvp_spi_traffic3.v:516$81.
+  creating $alu model for $ge$tqvp_spi_traffic3.v:471$69 ($ge): new $alu
+  creating $alu model for $gt$tqvp_spi_traffic3.v:147$18 ($gt): new $alu
+  creating $alu model for $lt$tqvp_spi_traffic3.v:146$17 ($lt): new $alu
+  creating $alu cell for $lt$tqvp_spi_traffic3.v:146$17: $auto$alumacc.cc:512:replace_alu$837
+  creating $alu cell for $gt$tqvp_spi_traffic3.v:147$18: $auto$alumacc.cc:512:replace_alu$842
+  creating $alu cell for $ge$tqvp_spi_traffic3.v:471$69: $auto$alumacc.cc:512:replace_alu$853
+  creating $alu cell for $sub$tqvp_spi_traffic3.v:516$81: $auto$alumacc.cc:512:replace_alu$866
+  creating $alu cell for $add$tqvp_spi_traffic3.v:449$67: $auto$alumacc.cc:512:replace_alu$869
+  creating $alu cell for $sub$tqvp_spi_traffic3.v:446$66: $auto$alumacc.cc:512:replace_alu$872
+  creating $alu cell for $add$tqvp_spi_traffic3.v:282$39: $auto$alumacc.cc:512:replace_alu$875
+  creating $alu cell for $add$tqvp_spi_traffic3.v:185$26: $auto$alumacc.cc:512:replace_alu$878
+  created 8 $alu and 0 $macc cells.
+
+2.13. Executing SHARE pass (SAT-based resource sharing).
+
+2.14. Executing OPT pass (performing simple optimizations).
+
+2.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~8 debug messages>
+
+2.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 216 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~101 debug messages>
+
+2.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 216 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 3 unused cells and 11 unused wires.
+<suppressed ~4 debug messages>
+
+2.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.14.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.14.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~101 debug messages>
+
+2.14.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.14.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 213 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.14.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.14.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.14.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.14.16. Finished fast OPT passes. (There is nothing left to do.)
+
+2.15. Executing MEMORY pass.
+
+2.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+2.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 0 transformations.
+
+2.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+
+2.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+2.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+
+2.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+
+2.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+2.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+2.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.17. Executing OPT pass (performing simple optimizations).
+
+2.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~155 debug messages>
+
+2.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 201 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 58 unused wires.
+<suppressed ~1 debug messages>
+
+2.17.5. Finished fast OPT passes.
+
+2.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+
+2.19. Executing OPT pass (performing simple optimizations).
+
+2.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~1 debug messages>
+
+2.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 201 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 200 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+2.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~80 debug messages>
+
+2.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+    Consolidated identical input bits for $mux cell $procmux$320:
+      Old ports: A=3'001, B=3'110, Y=$1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156
+      New ports: A=2'01, B=2'10, Y=$1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156 [1:0]
+      New connections: $1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156 [2] = $1\crc8_byte$func$tqvp_spi_traffic3.v:324$5.crc[7:0]$156 [1]
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 1 changes.
+
+2.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 200 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.19.6. Executing OPT_SHARE pass.
+
+2.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+2.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+2.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tqvp_spi_traffic3..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~80 debug messages>
+
+2.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tqvp_spi_traffic3.
+Performed a total of 0 changes.
+
+2.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 200 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Removed a total of 0 cells.
+
+2.19.14. Executing OPT_SHARE pass.
+
+2.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+
+2.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.19.18. Finished fast OPT passes. (There is nothing left to do.)
+
+2.20. Executing TECHMAP pass (map to technology primitives).
+
+2.20.1. Executing Verilog-2005 frontend: C:\oss-cad-suite\bin\../share/yosys/techmap.v
+Parsing Verilog input from `C:\oss-cad-suite\bin\../share/yosys/techmap.v' to AST representation.
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `$__div_mod_u'.
+Generating RTLIL representation for module `$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `$connect'.
+Generating RTLIL representation for module `$input_port'.
+Successfully finished Verilog frontend.
+
+2.20.2. Continuing TECHMAP pass.
+Using extmapper simplemap for cells of type $not.
+Using template $paramod$32a7b7b86c07519b7537abc18e96f0331f97914d\_90_alu for cells of type $alu.
+Using template $paramod$32efbfac1c4dc57230cf86180788fdfd12e3b511\_90_alu for cells of type $alu.
+Using template $paramod$a1665ef28c749ebcdbe9aecd466e644647b56463\_90_alu for cells of type $alu.
+Using template $paramod$c3cd1564c35d873179656addd6052d7ea8b6d991\_90_alu for cells of type $alu.
+Using template $paramod$8742280fdebca84e1c87f2a86ed84f62d558f4cc\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $reduce_or.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $reduce_and.
+Using template $paramod$740b056ede97228d3eae64ea2fdc81f0a33e0fe7\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $adffe.
+Using extmapper simplemap for cells of type $reduce_bool.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $logic_or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $xor.
+Using template $paramod$0f435e42bbb05ef097dd85b3afb0f81e297f812d\_90_pmux for cells of type $pmux.
+Using extmapper simplemap for cells of type $adff.
+Using extmapper simplemap for cells of type $pos.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000100 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000100 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000001000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000001000 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000010000 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000010000 for cells of type $lcu.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000110 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000110 for cells of type $lcu.
+No more expansions possible.
+<suppressed ~1210 debug messages>
+
+2.21. Executing OPT pass (performing simple optimizations).
+
+2.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+<suppressed ~744 debug messages>
+
+2.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 970 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 929 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 923 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+<suppressed ~141 debug messages>
+Removed a total of 47 cells.
+
+2.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 40 unused cells and 638 unused wires.
+<suppressed ~41 debug messages>
+
+2.21.5. Finished fast OPT passes.
+
+2.22. Executing ABC pass (technology mapping using ABC).
+
+2.22.1. Extracting gate netlist of module `\tqvp_spi_traffic3' to `<abc-temp-dir>/input.blif'..
+
+2.22.1.1. Executed ABC.
+Extracted 742 gates and 892 wires to a netlist network with 148 inputs and 127 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: ======== ABC command line "source <abc-temp-dir>/abc.script"
+ABC: + read_blif <abc-temp-dir>/input.blif
+ABC: + read_library <abc-temp-dir>/stdcells.genlib
+ABC: + strash
+ABC: + &get -n
+ABC: + &fraig -x
+ABC: + &put
+ABC: + scorr
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2
+ABC: + dretime
+ABC: + strash
+ABC: + &get -n
+ABC: + &dch -f
+ABC: + &nf
+ABC: + &put
+ABC: + write_blif <abc-temp-dir>/output.blif
+
+2.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:      137
+ABC RESULTS:            ANDNOT cells:       61
+ABC RESULTS:               BUF cells:        3
+ABC RESULTS:               MUX cells:        7
+ABC RESULTS:              NAND cells:      110
+ABC RESULTS:               NOR cells:       16
+ABC RESULTS:               NOT cells:        5
+ABC RESULTS:                OR cells:       11
+ABC RESULTS:             ORNOT cells:       22
+ABC RESULTS:              XNOR cells:       60
+ABC RESULTS:               XOR cells:       23
+ABC RESULTS:        internal signals:      617
+ABC RESULTS:           input signals:      148
+ABC RESULTS:          output signals:      127
+Removing temp directory.
+Removing global temp directory.
+
+2.23. Executing OPT pass (performing simple optimizations).
+
+2.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tqvp_spi_traffic3.
+
+2.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tqvp_spi_traffic3'.
+Computing hashes of 593 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+Computing hashes of 592 cells of `\tqvp_spi_traffic3'.
+Finding duplicate cells in `\tqvp_spi_traffic3'.
+<suppressed ~3 debug messages>
+Removed a total of 1 cells.
+
+2.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+2.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tqvp_spi_traffic3..
+Removed 0 unused cells and 528 unused wires.
+<suppressed ~16 debug messages>
+
+2.23.5. Finished fast OPT passes.
+
+2.24. Executing HIERARCHY pass (managing design hierarchy).
+
+2.25. Printing statistics.
+
+=== tqvp_spi_traffic3 ===
+
+        +----------Local Count, excluding submodules.
+        |
+      442 wires
+     1021 wire bits
+       94 public wires
+      607 public wire bits
+       11 ports
+       94 port bits
+      592 cells
+       61   $_ANDNOT_
+      136   $_AND_
+      115   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+       23   $_DFF_PN0_
+        2   $_DFF_PN1_
+        7   $_MUX_
+      110   $_NAND_
+       16   $_NOR_
+        5   $_NOT_
+       22   $_ORNOT_
+       11   $_OR_
+       60   $_XNOR_
+       23   $_XOR_
+
+2.26. Executing CHECK pass (checking for obvious problems).
+Checking module tqvp_spi_traffic3...
+Found and reported 0 problems.
+
+yosys> stat
+
+3. Printing statistics.
+
+=== tqvp_spi_traffic3 ===
+
+        +----------Local Count, excluding submodules.
+        |
+      442 wires
+     1021 wire bits
+       94 public wires
+      607 public wire bits
+       11 ports
+       94 port bits
+      592 cells
+       61   $_ANDNOT_
+      136   $_AND_
+      115   $_DFFE_PN0P_
+        1   $_DFFE_PN1P_
+       23   $_DFF_PN0_
+        2   $_DFF_PN1_
+        7   $_MUX_
+      110   $_NAND_
+       16   $_NOR_
+        5   $_NOT_
+       22   $_ORNOT_
+       11   $_OR_
+       60   $_XNOR_
+       23   $_XOR_
+
+
+yosys> show -prefix my_diagram -format dot
+4. Generating Graphviz representation of design.
+Writing dot description to `my_diagram.dot'.
+Dumping module tqvp_spi_traffic3 to page 1.
+
+yosys> write_verilog synthesized_output.v
+
+5. Executing Verilog backend.
+
+5.1. Executing BMUXMAP pass.
+
+5.2. Executing DEMUXMAP pass.
+Dumping module `\tqvp_spi_traffic3'.
+
+yosys> write_json tqvp_spi_traffic3.json
+
+6. Executing JSON backend.
+
+yosys>
