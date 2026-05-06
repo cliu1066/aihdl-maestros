@@ -1,36 +1,97 @@
-[OSS CAD Suite] C:\Users\moral\Desktop\Things3>iverilog -o sim.out -s tb_tqvp_spi_traffic3 tb_tqvp_spi_traffic3.v tqvp_spi_traffic3.v
-
-[OSS CAD Suite] C:\Users\moral\Desktop\Things3>vvp sim.out
+candice@LAPTOP-0MKTJKTM:~/projects/test$ vvp sim.out
 VCD info: dumpfile tb_tqvp_spi_traffic3.vcd opened for output.
-PASS: reset/default supplemental request is low
-PASS: reset/default interrupt is low
-PASS: loop inactive stable bit eventually asserts when loop input is low
-PASS: bus can enable CTRL in level mode
+
+--- T1: Reset defaults ---
+PASS: supplemental request low after reset
+PASS: interrupt low after reset
+PASS: loop_inactive_stable asserts when loop input is low
+
+--- T2: Bus CTRL and THRESHOLD config ---
+PASS: bus can set CTRL to enable+level
 PASS: bus can set threshold to 8
-PASS: bus threshold write of 0 clamps to minimum 1
-PASS: valid SPI packet makes Wi-Fi reading valid
-PASS: valid SPI packet updates Wi-Fi count to 10
-PASS: congestion output asserts for count >= threshold
-PASS: supplemental request asserts when loop inactive and Wi-Fi demand valid
-PASS: interrupt latches on Wi-Fi demand rising edge
-PASS: level supplemental request remains high after IRQ clear
-PASS: edge-latched IRQ clears even while demand level remains high
-PASS: packet with bad tag is rejected and count remains 10
-PASS: security status reports last tag check failed
-PASS: replayed sequence number is rejected
-PASS: security status reports replayed sequence not fresh
-PASS: SPI cannot write threshold; threshold remains bus-owned
-PASS: SPI cannot write CTRL; enable remains bus-owned
-PASS: loop detect status follows active loop input after synchronization
-PASS: congestion can remain high while loop detector is active
-PASS: active loop detector suppresses supplemental Wi-Fi request
-PASS: supplemental request returns after loop is stably inactive
-PASS: new Wi-Fi demand rising edge reasserts IRQ after loop suppression ends
-PASS: IRQ clears after second demand event
-PASS: Wi-Fi reading becomes invalid after timeout expires
-PASS: congestion clears after Wi-Fi timeout
-PASS: supplemental request clears after Wi-Fi timeout
 
-ALL TESTS PASSED
+--- T3: Threshold clamp ---
+PASS: threshold write of 0 clamps to minimum 1
 
-tb_tqvp_spi_traffic3.v:326: $finish called at 44460000 (1ps)
+--- T4: Valid SPI WiFi count update ---
+PASS: wifi_valid set after authenticated SPI packet
+PASS: wifi_count updated to 10 by SPI
+PASS: congestion output high (count=10 >= threshold=8)
+PASS: supplemental request high (loop inactive, wifi demand)
+PASS: IRQ latches on wifi_demand rising edge
+
+--- T5: Edge-triggered IRQ clear while demand active ---
+PASS: supplemental request still high after IRQ clear
+PASS: edge-latched IRQ cleared even with active demand
+
+--- T6: Bad tag rejected ---
+PASS: count unchanged after bad-tag packet
+PASS: spi_last_tag_ok=0 after bad tag
+
+--- T7: Replay attack rejected ---
+PASS: count unchanged after replayed sequence
+PASS: spi_last_seq_ok=0 for replayed sequence
+
+--- T8: SPI cannot write REG_THRESHOLD ---
+PASS: threshold unchanged; SPI cannot write it
+
+--- T9: SPI cannot write REG_CTRL ---
+PASS: CTRL unchanged; SPI cannot write it
+
+--- T10: Active loop suppresses supplemental request ---
+PASS: uo_out[2] follows loop input
+PASS: congestion remains high with loop active
+PASS: supplemental request suppressed when loop active
+
+--- T11: Loop inactive → supp request and IRQ return ---
+PASS: supplemental request returns after loop stably inactive
+PASS: new wifi_demand rising edge reasserts IRQ
+PASS: IRQ cleared after second demand event
+
+--- T12: WiFi data freshness timeout ---
+PASS: wifi_valid cleared after timeout
+PASS: congestion clears after WiFi timeout
+PASS: supplemental request clears after WiFi timeout
+
+--- T13: Brute-force lockout after 3 bad tags ---
+PASS: fail_count=0 before any bad packets
+PASS: lockout_active=0 before any bad packets
+PASS: fail_count=1 after first bad tag
+PASS: no lockout yet after 1 bad tag
+PASS: fail_count=2 after second bad tag
+PASS: no lockout yet after 2 bad tags
+PASS: fail_count reset to 0 on lockout trigger
+PASS: lockout_active=1 after 3 bad tags
+PASS: sec_alert=1 (sticky) after lockout trigger
+PASS: sec_alert rising edge fires IRQ
+
+--- T14: Valid packet rejected during lockout ---
+PASS: wifi_valid still 0; packet rejected during lockout
+PASS: wifi_count not updated to new value during lockout
+
+--- T15: Valid packet accepted after lockout expires ---
+PASS: lockout_active cleared after LOCKOUT_CYCLES
+PASS: sec_alert remains sticky after lockout expires
+PASS: wifi_valid=1 after valid packet post-lockout
+PASS: wifi_count=7 accepted after lockout expired
+
+--- T16: sec_alert sticky until reset ---
+PASS: sec_alert still set after IRQ clear (sticky)
+PASS: sec_alert cleared after rst_n
+PASS: lockout_active cleared after rst_n
+PASS: fail_count cleared after rst_n
+PASS: IRQ cleared after rst_n
+
+--- T17: Full functional check after reset ---
+PASS: wifi_valid after reset + valid packet
+PASS: wifi_count=10 after reset + valid packet
+PASS: congestion high after reset + count=10
+PASS: IRQ fires after reset on new demand
+PASS: spi_last_tag_ok=1 (sticky) after valid packet
+PASS: spi_last_tag_ok=1 for valid packet
+PASS: spi_last_seq_ok=1 for fresh sequence
+
+============================================
+  ALL TESTS PASSED
+============================================
+tb_tqvp_spi_traffic3.v:447: $finish called at 111830000 (1ps)

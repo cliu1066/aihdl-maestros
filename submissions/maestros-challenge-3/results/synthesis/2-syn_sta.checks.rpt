@@ -4,86 +4,76 @@ report_checks -unconstrained
 ===========================================================================
 ======================= Typical Corner ===================================
 
-Startpoint: _1150_ (rising edge-triggered flip-flop clocked by clk')
-Endpoint: _1175_ (recovery check against rising-edge clock clk)
+Startpoint: rst_n (input port clocked by clk)
+Endpoint: _1051_ (recovery check against rising-edge clock clk)
 Path Group: asynchronous
 Path Type: max
 
 Fanout     Cap    Slew   Delay    Time   Description
 -----------------------------------------------------------------------------
-                  0.15    5.00    5.00   clock clk' (rise edge)
-                          0.00    5.00   clock network delay (ideal)
-                  0.15    0.00    5.00 ^ _1150_/CLK (sky130_fd_sc_hd__dfxtp_2)
-                  2.45    2.14    7.14 ^ _1150_/Q (sky130_fd_sc_hd__dfxtp_2)
-   138    0.50                           dut.rst_n (net)
-                  2.45    0.00    7.14 ^ _1175_/RESET_B (sky130_fd_sc_hd__dfrtp_2)
-                                  7.14   data arrival time
+                  0.15    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+                  2.33    1.67    3.67 ^ rst_n (in)
+   144    0.52                           rst_n (net)
+                  2.33    0.00    3.67 ^ _1051_/RESET_B (sky130_fd_sc_hd__dfrtp_2)
+                                  3.67   data arrival time
 
                   0.15   10.00   10.00   clock clk (rise edge)
                           0.00   10.00   clock network delay (ideal)
                          -0.25    9.75   clock uncertainty
                           0.00    9.75   clock reconvergence pessimism
-                                  9.75 ^ _1175_/CLK (sky130_fd_sc_hd__dfrtp_2)
-                         -0.55    9.20   library recovery time
-                                  9.20   data required time
+                                  9.75 ^ _1051_/CLK (sky130_fd_sc_hd__dfrtp_2)
+                         -0.50    9.25   library recovery time
+                                  9.25   data required time
 -----------------------------------------------------------------------------
-                                  9.20   data required time
-                                 -7.14   data arrival time
+                                  9.25   data required time
+                                 -3.67   data arrival time
 -----------------------------------------------------------------------------
-                                  2.07   slack (MET)
+                                  5.58   slack (MET)
 
 
-Startpoint: _1150_ (rising edge-triggered flip-flop clocked by clk')
-Endpoint: _1152_ (rising edge-triggered flip-flop clocked by clk)
+Startpoint: address[2] (input port clocked by clk)
+Endpoint: data_out[0] (output port clocked by clk)
 Path Group: clk
 Path Type: max
 
 Fanout     Cap    Slew   Delay    Time   Description
 -----------------------------------------------------------------------------
-                  0.15    5.00    5.00   clock clk' (rise edge)
-                          0.00    5.00   clock network delay (ideal)
-                  0.15    0.00    5.00 ^ _1150_/CLK (sky130_fd_sc_hd__dfxtp_2)
-                  2.45    2.14    7.14 ^ _1150_/Q (sky130_fd_sc_hd__dfxtp_2)
-   138    0.50                           dut.rst_n (net)
-                  2.45    0.00    7.14 ^ _0573_/B (sky130_fd_sc_hd__and2b_2)
-                  0.11    0.43    7.57 ^ _0573_/X (sky130_fd_sc_hd__and2b_2)
-     6    0.01                           _0185_ (net)
-                  0.11    0.00    7.57 ^ _0574_/B1_N (sky130_fd_sc_hd__a21bo_2)
-                  0.04    0.25    7.82 v _0574_/X (sky130_fd_sc_hd__a21bo_2)
-     2    0.00                           _0186_ (net)
-                  0.04    0.00    7.82 v _0749_/B1 (sky130_fd_sc_hd__a31o_2)
-                  0.03    0.21    8.02 v _0749_/X (sky130_fd_sc_hd__a31o_2)
-     1    0.00                           _0343_ (net)
-                  0.03    0.00    8.02 v _0750_/C (sky130_fd_sc_hd__or3_2)
-                  0.07    0.41    8.44 v _0750_/X (sky130_fd_sc_hd__or3_2)
-     1    0.00                           _0344_ (net)
-                  0.07    0.00    8.44 v _0751_/A (sky130_fd_sc_hd__buf_1)
-                  0.11    0.18    8.61 v _0751_/X (sky130_fd_sc_hd__buf_1)
-     6    0.02                           _0345_ (net)
-                  0.11    0.00    8.61 v _0752_/A (sky130_fd_sc_hd__buf_1)
-                  0.15    0.22    8.84 v _0752_/X (sky130_fd_sc_hd__buf_1)
-    10    0.03                           _0346_ (net)
-                  0.15    0.00    8.84 v _0753_/A (sky130_fd_sc_hd__buf_1)
-                  0.13    0.23    9.06 v _0753_/X (sky130_fd_sc_hd__buf_1)
-    10    0.02                           _0347_ (net)
-                  0.13    0.00    9.06 v _0757_/A2 (sky130_fd_sc_hd__a22o_2)
-                  0.04    0.29    9.35 v _0757_/X (sky130_fd_sc_hd__a22o_2)
-     1    0.00                           _0017_ (net)
-                  0.04    0.00    9.35 v _1152_/D (sky130_fd_sc_hd__dfxtp_2)
-                                  9.35   data arrival time
+                  0.15    0.00    0.00   clock clk (rise edge)
+                          0.00    0.00   clock network delay (ideal)
+                          2.00    2.00 ^ input external delay
+                  0.07    0.05    2.05 ^ address[2] (in)
+     7    0.01                           address[2] (net)
+                  0.07    0.00    2.05 ^ _0560_/A_N (sky130_fd_sc_hd__and4bb_2)
+                  0.07    0.28    2.32 v _0560_/X (sky130_fd_sc_hd__and4bb_2)
+     7    0.02                           _0175_ (net)
+                  0.07    0.00    2.32 v _0561_/A (sky130_fd_sc_hd__buf_1)
+                  0.13    0.19    2.52 v _0561_/X (sky130_fd_sc_hd__buf_1)
+    10    0.02                           _0176_ (net)
+                  0.13    0.00    2.52 v _0562_/B2 (sky130_fd_sc_hd__a32o_2)
+                  0.04    0.27    2.79 v _0562_/X (sky130_fd_sc_hd__a32o_2)
+     1    0.00                           _0177_ (net)
+                  0.04    0.00    2.79 v _0563_/C1 (sky130_fd_sc_hd__a221o_2)
+                  0.05    0.30    3.08 v _0563_/X (sky130_fd_sc_hd__a221o_2)
+     1    0.00                           _0178_ (net)
+                  0.05    0.00    3.08 v _0566_/A2 (sky130_fd_sc_hd__o21a_2)
+                  0.10    0.28    3.37 v _0566_/X (sky130_fd_sc_hd__o21a_2)
+     1    0.03                           data_out[0] (net)
+                  0.10    0.00    3.37 v data_out[0] (out)
+                                  3.37   data arrival time
 
                   0.15   10.00   10.00   clock clk (rise edge)
                           0.00   10.00   clock network delay (ideal)
                          -0.25    9.75   clock uncertainty
                           0.00    9.75   clock reconvergence pessimism
-                                  9.75 ^ _1152_/CLK (sky130_fd_sc_hd__dfxtp_2)
-                         -0.08    9.67   library setup time
-                                  9.67   data required time
+                         -2.00    7.75   output external delay
+                                  7.75   data required time
 -----------------------------------------------------------------------------
-                                  9.67   data required time
-                                 -9.35   data arrival time
+                                  7.75   data required time
+                                 -3.37   data arrival time
 -----------------------------------------------------------------------------
-                                  0.31   slack (MET)
+                                  4.38   slack (MET)
 
 
 
@@ -105,166 +95,223 @@ max slew
 
 Pin                                    Limit    Slew   Slack
 ------------------------------------------------------------
-_0573_/B                                0.75    2.45   -1.70 (VIOLATED)
-_1150_/Q                                0.75    2.45   -1.70 (VIOLATED)
-_1175_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1176_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1177_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1178_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1179_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1180_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1181_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1182_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1183_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1184_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1185_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1186_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1187_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1188_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1189_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1190_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1191_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1192_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1193_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1194_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1195_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1196_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1197_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1198_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1199_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1200_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1201_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1202_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1203_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1204_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1205_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1206_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1207_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1208_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1209_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1210_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1211_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1212_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1213_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1214_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1215_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1216_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1217_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1218_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1219_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1220_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1221_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1222_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1223_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1224_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1225_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1226_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1227_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1228_/SET_B                            0.75    2.45   -1.70 (VIOLATED)
-_1229_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1230_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1231_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1232_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1233_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1234_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1235_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1236_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1237_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1238_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1239_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1240_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1241_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1242_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1243_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1244_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1245_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1246_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1247_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1248_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1249_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1250_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1251_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1252_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1253_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1254_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1255_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1256_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1257_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1258_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1259_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1260_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1261_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1262_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1263_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1264_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1265_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1266_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1267_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1268_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1269_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1270_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1271_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1272_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1273_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1274_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1275_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1276_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1277_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1278_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1279_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1280_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1281_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1282_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1283_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1284_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1285_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1286_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1287_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1288_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1289_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1290_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1291_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1292_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1293_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1294_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1295_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1296_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1297_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1298_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1299_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1300_/SET_B                            0.75    2.45   -1.70 (VIOLATED)
-_1301_/SET_B                            0.75    2.45   -1.70 (VIOLATED)
-_1302_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1303_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1304_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1305_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1306_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1307_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1345_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1346_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1347_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
-_1348_/RESET_B                          0.75    2.45   -1.70 (VIOLATED)
+rst_n                                   0.75    2.33   -1.58 (VIOLATED)
+_1051_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1052_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1053_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1054_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1055_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1056_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1057_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1058_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1059_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1060_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1061_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1062_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1063_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1064_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1065_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1066_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1067_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1068_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1069_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1070_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1071_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1072_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1073_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1074_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1075_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1076_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1077_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1078_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1079_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1080_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1081_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1082_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1083_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1084_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1085_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1086_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1087_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1088_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1089_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1090_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1091_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1092_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1093_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1094_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1095_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1096_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1097_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1098_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1099_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1100_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1101_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1102_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1103_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1104_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1105_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1106_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1107_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1108_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1109_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1110_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1111_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1112_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1113_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1114_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1115_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1116_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1117_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1118_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1119_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1120_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1121_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1122_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1123_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1124_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1125_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1126_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1127_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1128_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1129_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1130_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1131_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1132_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1133_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1134_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1135_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1136_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1137_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1138_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1139_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1140_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1141_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1142_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1143_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1144_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1145_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1146_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1147_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1148_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1149_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1150_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1151_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1152_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1153_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1154_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1155_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1156_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1157_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1158_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1159_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1160_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1161_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1162_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1163_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1164_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1165_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1166_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1167_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1168_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1169_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1170_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1171_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1172_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1173_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1174_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1175_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1176_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1177_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1178_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1179_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1180_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1181_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1182_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1183_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1184_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1185_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1186_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1187_/SET_B                            0.75    2.33   -1.58 (VIOLATED)
+_1188_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1189_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1190_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1191_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1192_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1193_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_1194_/RESET_B                          0.75    2.33   -1.58 (VIOLATED)
+_0710_/Y                                0.75    0.79   -0.04 (VIOLATED)
+_0712_/A                                0.75    0.79   -0.04 (VIOLATED)
+_0715_/B1                               0.75    0.79   -0.04 (VIOLATED)
+_0732_/C1                               0.75    0.79   -0.04 (VIOLATED)
+_0736_/A                                0.75    0.79   -0.04 (VIOLATED)
+_0740_/B1                               0.75    0.79   -0.04 (VIOLATED)
+_0743_/B1                               0.75    0.79   -0.04 (VIOLATED)
+_0750_/B1                               0.75    0.79   -0.04 (VIOLATED)
+_0919_/B                                0.75    0.79   -0.04 (VIOLATED)
 
 max fanout
 
 Pin                                   Limit Fanout  Slack
 ---------------------------------------------------------
-_1150_/Q                                 10    138   -128 (VIOLATED)
+rst_n                                    10    144   -134 (VIOLATED)
 
 max capacitance
 
 Pin                                    Limit     Cap   Slack
 ------------------------------------------------------------
-_1150_/Q                                0.30    0.50   -0.19 (VIOLATED)
+rst_n                                   0.33    0.52   -0.19 (VIOLATED)
 
 
 
 ===========================================================================
 report_parasitic_annotation -report_unannotated
 ============================================================================
-Found 834 unannotated drivers.
+Found 759 unannotated drivers.
+ address[0]
+ address[1]
+ address[2]
+ address[3]
+ address[4]
+ address[5]
  clk
- ena
+ data_in[0]
+ data_in[10]
+ data_in[11]
+ data_in[12]
+ data_in[13]
+ data_in[14]
+ data_in[15]
+ data_in[16]
+ data_in[17]
+ data_in[18]
+ data_in[19]
+ data_in[1]
+ data_in[20]
+ data_in[21]
+ data_in[22]
+ data_in[23]
+ data_in[24]
+ data_in[25]
+ data_in[26]
+ data_in[27]
+ data_in[28]
+ data_in[29]
+ data_in[2]
+ data_in[30]
+ data_in[31]
+ data_in[3]
+ data_in[4]
+ data_in[5]
+ data_in[6]
+ data_in[7]
+ data_in[8]
+ data_in[9]
+ data_read_n[0]
+ data_read_n[1]
+ data_ready
+ data_write_n[0]
+ data_write_n[1]
  rst_n
  ui_in[0]
  ui_in[1]
@@ -274,14 +321,64 @@ Found 834 unannotated drivers.
  ui_in[5]
  ui_in[6]
  ui_in[7]
- uio_in[0]
- uio_in[1]
- uio_in[2]
- uio_in[3]
- uio_in[4]
- uio_in[5]
- uio_in[6]
- uio_in[7]
+ _0512_/X
+ _0513_/Y
+ _0514_/Y
+ _0515_/Y
+ _0516_/X
+ _0517_/X
+ _0518_/Y
+ _0519_/Y
+ _0520_/X
+ _0521_/X
+ _0522_/Y
+ _0523_/X
+ _0524_/X
+ _0525_/X
+ _0526_/X
+ _0527_/X
+ _0528_/X
+ _0529_/Y
+ _0530_/Y
+ _0531_/X
+ _0532_/X
+ _0533_/X
+ _0534_/X
+ _0535_/X
+ _0536_/X
+ _0537_/X
+ _0538_/Y
+ _0539_/Y
+ _0540_/Y
+ _0541_/Y
+ _0542_/Y
+ _0543_/Y
+ _0544_/X
+ _0545_/X
+ _0546_/X
+ _0547_/X
+ _0548_/X
+ _0549_/X
+ _0550_/X
+ _0551_/Y
+ _0552_/X
+ _0553_/X
+ _0554_/X
+ _0555_/Y
+ _0556_/X
+ _0557_/X
+ _0558_/X
+ _0559_/X
+ _0560_/X
+ _0561_/X
+ _0562_/X
+ _0563_/X
+ _0564_/Y
+ _0565_/X
+ _0566_/X
+ _0567_/X
+ _0568_/X
+ _0569_/X
  _0570_/X
  _0571_/X
  _0572_/X
@@ -289,86 +386,86 @@ Found 834 unannotated drivers.
  _0574_/X
  _0575_/X
  _0576_/X
- _0577_/Y
- _0578_/Y
+ _0577_/X
+ _0578_/X
  _0579_/X
  _0580_/X
- _0581_/Y
+ _0581_/X
  _0582_/X
  _0583_/X
  _0584_/X
- _0585_/Y
- _0586_/Y
+ _0585_/X
+ _0586_/X
  _0587_/X
- _0588_/Y
+ _0588_/X
  _0589_/X
- _0590_/Y
- _0591_/Y
- _0592_/Y
- _0593_/Y
- _0594_/Y
+ _0590_/X
+ _0591_/X
+ _0592_/X
+ _0593_/X
+ _0594_/X
  _0595_/X
- _0596_/Y
- _0597_/Y
+ _0596_/X
+ _0597_/X
  _0598_/X
- _0599_/Y
- _0600_/Y
- _0601_/Y
+ _0599_/X
+ _0600_/X
+ _0601_/X
  _0602_/X
  _0603_/X
- _0604_/Y
+ _0604_/X
  _0605_/X
- _0606_/Y
- _0607_/Y
- _0608_/Y
- _0609_/Y
- _0610_/Y
- _0611_/Y
- _0612_/Y
- _0613_/Y
- _0614_/Y
- _0615_/Y
- _0616_/Y
+ _0606_/X
+ _0607_/X
+ _0608_/X
+ _0609_/X
+ _0610_/X
+ _0611_/X
+ _0612_/X
+ _0613_/X
+ _0614_/X
+ _0615_/X
+ _0616_/X
  _0617_/X
- _0618_/Y
- _0619_/Y
- _0620_/Y
- _0621_/Y
- _0622_/Y
- _0623_/Y
- _0624_/Y
- _0625_/Y
- _0626_/Y
+ _0618_/X
+ _0619_/X
+ _0620_/X
+ _0621_/X
+ _0622_/X
+ _0623_/X
+ _0624_/X
+ _0625_/X
+ _0626_/X
  _0627_/X
  _0628_/Y
- _0629_/Y
- _0630_/Y
- _0631_/Y
- _0632_/Y
- _0633_/Y
- _0634_/Y
- _0635_/Y
+ _0629_/X
+ _0630_/X
+ _0631_/X
+ _0632_/X
+ _0633_/X
+ _0634_/X
+ _0635_/X
  _0636_/X
  _0637_/X
- _0638_/Y
+ _0638_/X
  _0639_/X
- _0640_/Y
- _0641_/Y
- _0642_/Y
+ _0640_/X
+ _0641_/X
+ _0642_/X
  _0643_/X
  _0644_/X
- _0645_/Y
+ _0645_/X
  _0646_/Y
- _0647_/Y
- _0648_/Y
+ _0647_/X
+ _0648_/X
  _0649_/X
  _0650_/X
  _0651_/X
- _0652_/Y
- _0653_/Y
+ _0652_/X
+ _0653_/X
  _0654_/X
- _0655_/X
- _0656_/X
+ _0655_/Y
+ _0656_/Y
  _0657_/X
  _0658_/X
  _0659_/X
@@ -378,12 +475,12 @@ Found 834 unannotated drivers.
  _0663_/X
  _0664_/Y
  _0665_/X
- _0666_/Y
- _0667_/Y
+ _0666_/X
+ _0667_/X
  _0668_/X
  _0669_/X
  _0670_/X
- _0671_/X
+ _0671_/Y
  _0672_/X
  _0673_/X
  _0674_/X
@@ -393,112 +490,112 @@ Found 834 unannotated drivers.
  _0678_/X
  _0679_/X
  _0680_/X
- _0681_/Y
+ _0681_/X
  _0682_/X
  _0683_/Y
  _0684_/X
  _0685_/X
- _0686_/Y
+ _0686_/X
  _0687_/X
- _0688_/Y
+ _0688_/X
  _0689_/X
  _0690_/X
- _0691_/X
- _0692_/X
+ _0691_/Y
+ _0692_/Y
  _0693_/Y
- _0694_/X
- _0695_/Y
+ _0694_/Y
+ _0695_/X
  _0696_/Y
  _0697_/Y
  _0698_/Y
- _0699_/Y
- _0700_/Y
+ _0699_/X
+ _0700_/X
  _0701_/X
  _0702_/X
- _0703_/X
- _0704_/X
- _0705_/X
+ _0703_/Y
+ _0704_/Y
+ _0705_/Y
  _0706_/X
- _0707_/Y
+ _0707_/X
  _0708_/Y
  _0709_/X
- _0710_/X
- _0711_/X
- _0712_/X
- _0713_/X
+ _0710_/Y
+ _0711_/Y
+ _0712_/Y
+ _0713_/Y
  _0714_/X
  _0715_/X
- _0716_/X
+ _0716_/Y
  _0717_/X
  _0718_/X
- _0719_/X
- _0720_/X
+ _0719_/Y
+ _0720_/Y
  _0721_/X
- _0722_/X
- _0723_/X
- _0724_/X
- _0725_/X
+ _0722_/Y
+ _0723_/Y
+ _0724_/Y
+ _0725_/Y
  _0726_/X
- _0727_/X
+ _0727_/Y
  _0728_/X
  _0729_/X
  _0730_/X
- _0731_/X
- _0732_/X
- _0733_/Y
+ _0731_/Y
+ _0732_/Y
+ _0733_/X
  _0734_/X
  _0735_/X
- _0736_/X
- _0737_/X
+ _0736_/Y
+ _0737_/Y
  _0738_/X
- _0739_/X
+ _0739_/Y
  _0740_/Y
- _0741_/X
- _0742_/Y
- _0743_/X
+ _0741_/Y
+ _0742_/X
+ _0743_/Y
  _0744_/X
- _0745_/Y
- _0746_/X
+ _0745_/X
+ _0746_/Y
  _0747_/X
  _0748_/X
- _0749_/X
- _0750_/X
+ _0749_/Y
+ _0750_/Y
  _0751_/X
- _0752_/X
- _0753_/X
- _0754_/Y
- _0755_/X
- _0756_/X
- _0757_/X
+ _0752_/Y
+ _0753_/Y
+ _0754_/X
+ _0755_/Y
+ _0756_/Y
+ _0757_/Y
  _0758_/X
  _0759_/X
  _0760_/X
- _0761_/X
+ _0761_/Y
  _0762_/X
- _0763_/X
+ _0763_/Y
  _0764_/X
  _0765_/X
- _0766_/X
- _0767_/X
+ _0766_/Y
+ _0767_/Y
  _0768_/X
  _0769_/X
  _0770_/X
- _0771_/X
- _0772_/X
- _0773_/X
+ _0771_/Y
+ _0772_/Y
+ _0773_/Y
  _0774_/X
  _0775_/X
  _0776_/X
  _0777_/X
  _0778_/X
- _0779_/X
- _0780_/X
+ _0779_/Y
+ _0780_/Y
  _0781_/X
  _0782_/X
- _0783_/X
+ _0783_/Y
  _0784_/X
  _0785_/X
- _0786_/X
+ _0786_/Y
  _0787_/X
  _0788_/X
  _0789_/X
@@ -514,26 +611,26 @@ Found 834 unannotated drivers.
  _0799_/X
  _0800_/X
  _0801_/X
- _0802_/X
+ _0802_/Y
  _0803_/X
  _0804_/X
  _0805_/Y
- _0806_/X
+ _0806_/Y
  _0807_/X
  _0808_/X
  _0809_/X
  _0810_/X
  _0811_/X
  _0812_/X
- _0813_/X
+ _0813_/Y
  _0814_/X
  _0815_/X
  _0816_/X
- _0817_/X
+ _0817_/Y
  _0818_/X
  _0819_/X
  _0820_/X
- _0821_/X
+ _0821_/Y
  _0822_/X
  _0823_/X
  _0824_/X
@@ -541,21 +638,21 @@ Found 834 unannotated drivers.
  _0826_/X
  _0827_/Y
  _0828_/X
- _0829_/Y
+ _0829_/X
  _0830_/X
  _0831_/X
- _0832_/X
+ _0832_/Y
  _0833_/X
- _0834_/Y
+ _0834_/X
  _0835_/X
  _0836_/X
  _0837_/X
  _0838_/X
  _0839_/X
- _0840_/X
- _0841_/X
+ _0840_/Y
+ _0841_/Y
  _0842_/X
- _0843_/Y
+ _0843_/X
  _0844_/X
  _0845_/X
  _0846_/X
@@ -563,11 +660,11 @@ Found 834 unannotated drivers.
  _0848_/X
  _0849_/X
  _0850_/X
- _0851_/X
+ _0851_/Y
  _0852_/X
  _0853_/X
- _0854_/Y
- _0855_/X
+ _0854_/X
+ _0855_/Y
  _0856_/X
  _0857_/X
  _0858_/X
@@ -576,11 +673,11 @@ Found 834 unannotated drivers.
  _0861_/X
  _0862_/X
  _0863_/X
- _0864_/X
+ _0864_/Y
  _0865_/X
- _0866_/Y
+ _0866_/X
  _0867_/X
- _0868_/X
+ _0868_/Y
  _0869_/X
  _0870_/X
  _0871_/X
@@ -588,10 +685,10 @@ Found 834 unannotated drivers.
  _0873_/X
  _0874_/X
  _0875_/X
- _0876_/X
- _0877_/X
+ _0876_/Y
+ _0877_/Y
  _0878_/Y
- _0879_/Y
+ _0879_/X
  _0880_/X
  _0881_/X
  _0882_/X
@@ -599,10 +696,10 @@ Found 834 unannotated drivers.
  _0884_/X
  _0885_/X
  _0886_/X
- _0887_/Y
+ _0887_/X
  _0888_/X
  _0889_/X
- _0890_/Y
+ _0890_/X
  _0891_/X
  _0892_/X
  _0893_/X
@@ -623,25 +720,25 @@ Found 834 unannotated drivers.
  _0908_/X
  _0909_/X
  _0910_/X
- _0911_/X
+ _0911_/Y
  _0912_/X
  _0913_/X
  _0914_/X
- _0915_/X
+ _0915_/Y
  _0916_/X
- _0917_/Y
+ _0917_/X
  _0918_/X
- _0919_/Y
+ _0919_/X
  _0920_/X
  _0921_/X
- _0922_/X
+ _0922_/Y
  _0923_/X
  _0924_/X
- _0925_/X
- _0926_/X
- _0927_/X
+ _0925_/Y
+ _0926_/Y
+ _0927_/Y
  _0928_/X
- _0929_/X
+ _0929_/Y
  _0930_/X
  _0931_/X
  _0932_/X
@@ -655,26 +752,26 @@ Found 834 unannotated drivers.
  _0940_/X
  _0941_/X
  _0942_/X
- _0943_/X
+ _0943_/Y
  _0944_/X
- _0945_/X
- _0946_/X
- _0947_/X
- _0948_/X
- _0949_/X
+ _0945_/Y
+ _0946_/Y
+ _0947_/Y
+ _0948_/Y
+ _0949_/Y
  _0950_/X
- _0951_/X
- _0952_/X
- _0953_/X
+ _0951_/Y
+ _0952_/Y
+ _0953_/Y
  _0954_/X
  _0955_/X
  _0956_/Y
  _0957_/X
- _0958_/Y
+ _0958_/X
  _0959_/X
  _0960_/X
  _0961_/Y
- _0962_/X
+ _0962_/Y
  _0963_/X
  _0964_/X
  _0965_/X
@@ -682,17 +779,17 @@ Found 834 unannotated drivers.
  _0967_/X
  _0968_/X
  _0969_/X
- _0970_/X
+ _0970_/Y
  _0971_/X
  _0972_/X
  _0973_/X
- _0974_/X
+ _0974_/Y
  _0975_/X
  _0976_/X
- _0977_/X
+ _0977_/Y
  _0978_/X
  _0979_/X
- _0980_/X
+ _0980_/Y
  _0981_/X
  _0982_/X
  _0983_/X
@@ -736,9 +833,9 @@ Found 834 unannotated drivers.
  _1021_/X
  _1022_/X
  _1023_/X
- _1024_/Y
- _1025_/Y
- _1026_/Y
+ _1024_/X
+ _1025_/X
+ _1026_/X
  _1027_/X
  _1028_/X
  _1029_/X
@@ -753,107 +850,107 @@ Found 834 unannotated drivers.
  _1038_/X
  _1039_/X
  _1040_/X
- _1041_/X
- _1042_/X
+ _1041_/Y
+ _1042_/Y
  _1043_/X
  _1044_/X
  _1045_/X
  _1046_/X
  _1047_/X
- _1048_/X
+ _1048_/Y
  _1049_/X
  _1050_/X
- _1051_/X
- _1052_/X
- _1053_/X
- _1054_/X
- _1055_/X
- _1056_/X
- _1057_/X
- _1058_/X
- _1059_/X
- _1060_/X
- _1061_/X
- _1062_/X
- _1063_/X
- _1064_/X
- _1065_/X
- _1066_/X
- _1067_/X
- _1068_/X
- _1069_/X
- _1070_/X
- _1071_/X
- _1072_/X
- _1073_/X
- _1074_/X
- _1075_/X
- _1076_/X
- _1077_/X
- _1078_/X
- _1079_/X
- _1080_/X
- _1081_/X
- _1082_/X
- _1083_/X
- _1084_/X
- _1085_/Y
- _1086_/X
- _1087_/Y
- _1088_/X
- _1089_/Y
- _1090_/Y
- _1091_/X
- _1092_/Y
- _1093_/X
- _1094_/X
- _1095_/X
- _1096_/X
- _1097_/X
- _1098_/X
- _1099_/X
- _1100_/X
- _1101_/X
- _1102_/X
- _1103_/Y
- _1104_/Y
- _1105_/X
- _1106_/Y
- _1107_/X
- _1108_/X
- _1109_/X
- _1110_/X
- _1111_/X
- _1112_/Y
- _1113_/X
- _1114_/X
- _1115_/X
- _1116_/X
- _1117_/X
- _1118_/X
- _1119_/X
- _1120_/X
- _1121_/X
- _1122_/X
- _1123_/X
- _1124_/X
- _1125_/X
- _1126_/X
- _1127_/X
- _1128_/X
- _1129_/X
- _1130_/X
- _1131_/Y
- _1132_/Y
- _1133_/X
- _1134_/X
- _1135_/X
- _1136_/Y
- _1137_/Y
- _1138_/Y
- _1139_/X
- _1140_/X
- _1141_/X
+ _1051_/Q
+ _1052_/Q
+ _1053_/Q
+ _1054_/Q
+ _1055_/Q
+ _1056_/Q
+ _1057_/Q
+ _1058_/Q
+ _1059_/Q
+ _1060_/Q
+ _1061_/Q
+ _1062_/Q
+ _1063_/Q
+ _1064_/Q
+ _1065_/Q
+ _1066_/Q
+ _1067_/Q
+ _1068_/Q
+ _1069_/Q
+ _1070_/Q
+ _1071_/Q
+ _1072_/Q
+ _1073_/Q
+ _1074_/Q
+ _1075_/Q
+ _1076_/Q
+ _1077_/Q
+ _1078_/Q
+ _1079_/Q
+ _1080_/Q
+ _1081_/Q
+ _1082_/Q
+ _1083_/Q
+ _1084_/Q
+ _1085_/Q
+ _1086_/Q
+ _1087_/Q
+ _1088_/Q
+ _1089_/Q
+ _1090_/Q
+ _1091_/Q
+ _1092_/Q
+ _1093_/Q
+ _1094_/Q
+ _1095_/Q
+ _1096_/Q
+ _1097_/Q
+ _1098_/Q
+ _1099_/Q
+ _1100_/Q
+ _1101_/Q
+ _1102_/Q
+ _1103_/Q
+ _1104_/Q
+ _1105_/Q
+ _1106_/Q
+ _1107_/Q
+ _1108_/Q
+ _1109_/Q
+ _1110_/Q
+ _1111_/Q
+ _1112_/Q
+ _1113_/Q
+ _1114_/Q
+ _1115_/Q
+ _1116_/Q
+ _1117_/Q
+ _1118_/Q
+ _1119_/Q
+ _1120_/Q
+ _1121_/Q
+ _1122_/Q
+ _1123_/Q
+ _1124_/Q
+ _1125_/Q
+ _1126_/Q
+ _1127_/Q
+ _1128_/Q
+ _1129_/Q
+ _1130_/Q
+ _1131_/Q
+ _1132_/Q
+ _1133_/Q
+ _1134_/Q
+ _1135_/Q
+ _1136_/Q
+ _1137_/Q
+ _1138_/Q
+ _1139_/Q
+ _1140_/Q
+ _1141_/Q
  _1142_/Q
  _1143_/Q
  _1144_/Q
@@ -907,200 +1004,33 @@ Found 834 unannotated drivers.
  _1192_/Q
  _1193_/Q
  _1194_/Q
- _1195_/Q
- _1196_/Q
- _1197_/Q
- _1198_/Q
- _1199_/Q
- _1200_/Q
- _1201_/Q
- _1202_/Q
- _1203_/Q
- _1204_/Q
- _1205_/Q
- _1206_/Q
- _1207_/Q
- _1208_/Q
- _1209_/Q
- _1210_/Q
- _1211_/Q
- _1212_/Q
- _1213_/Q
- _1214_/Q
- _1215_/Q
- _1216_/Q
- _1217_/Q
- _1218_/Q
- _1219_/Q
- _1220_/Q
- _1221_/Q
- _1222_/Q
- _1223_/Q
- _1224_/Q
- _1225_/Q
- _1226_/Q
- _1227_/Q
- _1228_/Q
- _1229_/Q
- _1230_/Q
- _1231_/Q
- _1232_/Q
- _1233_/Q
- _1234_/Q
- _1235_/Q
- _1236_/Q
- _1237_/Q
- _1238_/Q
- _1239_/Q
- _1240_/Q
- _1241_/Q
- _1242_/Q
- _1243_/Q
- _1244_/Q
- _1245_/Q
- _1246_/Q
- _1247_/Q
- _1248_/Q
- _1249_/Q
- _1250_/Q
- _1251_/Q
- _1252_/Q
- _1253_/Q
- _1254_/Q
- _1255_/Q
- _1256_/Q
- _1257_/Q
- _1258_/Q
- _1259_/Q
- _1260_/Q
- _1261_/Q
- _1262_/Q
- _1263_/Q
- _1264_/Q
- _1265_/Q
- _1266_/Q
- _1267_/Q
- _1268_/Q
- _1269_/Q
- _1270_/Q
- _1271_/Q
- _1272_/Q
- _1273_/Q
- _1274_/Q
- _1275_/Q
- _1276_/Q
- _1277_/Q
- _1278_/Q
- _1279_/Q
- _1280_/Q
- _1281_/Q
- _1282_/Q
- _1283_/Q
- _1284_/Q
- _1285_/Q
- _1286_/Q
- _1287_/Q
- _1288_/Q
- _1289_/Q
- _1290_/Q
- _1291_/Q
- _1292_/Q
- _1293_/Q
- _1294_/Q
- _1295_/Q
- _1296_/Q
- _1297_/Q
- _1298_/Q
- _1299_/Q
- _1300_/Q
- _1301_/Q
- _1302_/Q
- _1303_/Q
- _1304_/Q
- _1305_/Q
- _1306_/Q
- _1307_/Q
- _1308_/Q
- _1309_/Q
- _1310_/Q
- _1311_/Q
- _1312_/Q
- _1313_/Q
- _1314_/Q
- _1315_/Q
- _1316_/Q
- _1317_/Q
- _1318_/Q
- _1319_/Q
- _1320_/Q
- _1321_/Q
- _1322_/Q
- _1323_/Q
- _1324_/Q
- _1325_/Q
- _1326_/Q
- _1327_/Q
- _1328_/Q
- _1329_/Q
- _1330_/Q
- _1331_/Q
- _1332_/Q
- _1333_/Q
- _1334_/Q
- _1335_/Q
- _1336_/Q
- _1337_/Q
- _1338_/Q
- _1339_/Q
- _1340_/Q
- _1341_/Q
- _1342_/Q
- _1343_/Q
- _1344_/Q
- _1345_/Q
- _1346_/Q
- _1347_/Q
- _1348_/Q
- _1349_/Q
- _1350_/HI
- _1350_/LO
- _1351_/HI
- _1351_/LO
- _1352_/HI
- _1352_/LO
- _1353_/HI
- _1353_/LO
- _1354_/HI
- _1354_/LO
- _1355_/HI
- _1355_/LO
- _1356_/HI
- _1356_/LO
- _1357_/HI
- _1357_/LO
- _1358_/HI
- _1358_/LO
- _1359_/HI
- _1359_/LO
- _1360_/HI
- _1360_/LO
- _1361_/HI
- _1361_/LO
- _1362_/HI
- _1362_/LO
- _1363_/HI
- _1363_/LO
- _1364_/HI
- _1364_/LO
- _1365_/HI
- _1365_/LO
- _1366_/HI
- _1366_/LO
- _1367_/X
+ _1195_/HI
+ _1195_/LO
+ _1196_/HI
+ _1196_/LO
+ _1197_/HI
+ _1197_/LO
+ _1198_/HI
+ _1198_/LO
+ _1199_/HI
+ _1199_/LO
+ _1200_/HI
+ _1200_/LO
+ _1201_/HI
+ _1201_/LO
+ _1202_/HI
+ _1202_/LO
+ _1203_/HI
+ _1203_/LO
+ _1204_/HI
+ _1204_/LO
+ _1205_/HI
+ _1205_/LO
+ _1206_/X
 Found 0 partially unannotated drivers.
 
 ===========================================================================
-max slew violation count 139
+max slew violation count 154
 max fanout violation count 1
 max cap violation count 1
 ============================================================================
@@ -1108,20 +1038,14 @@ max cap violation count 1
 ===========================================================================
 check_setup -verbose -unconstrained_endpoints -multiple_clock -no_clock -no_input_delay -loops -generated_clocks
 ===========================================================================
-Warning: There are 17 unconstrained endpoints.
-  uio_oe[0]
-  uio_oe[1]
-  uio_oe[2]
-  uio_oe[3]
-  uio_oe[4]
-  uio_oe[5]
-  uio_oe[6]
-  uio_oe[7]
-  uio_out[2]
-  uio_out[4]
-  uio_out[5]
-  uio_out[6]
-  uio_out[7]
+Warning: There are 11 unconstrained endpoints.
+  data_out[25]
+  data_out[26]
+  data_out[27]
+  data_out[28]
+  data_out[29]
+  data_out[30]
+  data_out[31]
   uo_out[4]
   uo_out[5]
   uo_out[6]

@@ -1,9 +1,0 @@
-[WARNING GRT-0026] Missing route to pin _1225_/D.
-[WARNING GRT-0026] Missing route to pin _0831_/C.
-[WARNING GRT-0026] Missing route to pin _0752_/X.
-[WARNING GRT-0026] Missing route to pin _1225_/Q.
-[WARNING GRT-0026] Missing route to pin _0839_/B.
-[WARNING GRT-0026] Missing route to pin _1225_/CLK.
-[WARNING GRT-0026] Missing route to pin _1042_/A1.
-Warning: There are 17 unconstrained endpoints.
-[WARNING] Did not save OpenROAD database!
