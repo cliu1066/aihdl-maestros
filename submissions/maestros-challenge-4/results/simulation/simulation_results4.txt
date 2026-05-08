@@ -1,0 +1,47 @@
+[OSS CAD Suite] C:\Users\moral\Desktop\Things4>iverilog -o sim.out -s tb_tqvp_spi_traffic4 tb_tqvp_spi_traffic4.v tqvp_spi_traffic4.v
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things4>vvp sim.out
+VCD info: dumpfile tb_tqvp_spi_traffic4.vcd opened for output.
+PASS: reset/default supplemental request is low
+PASS: reset/default interrupt is low
+PASS: loop inactive stable bit eventually asserts when loop input is low
+PASS: bus can enable CTRL in level mode
+PASS: bus can set threshold to 8
+PASS: bus threshold write of 0 clamps to minimum 1
+PASS: valid SPI packet makes Wi-Fi reading valid
+PASS: valid SPI packet updates Wi-Fi count to 10
+PASS: congestion output asserts for count >= threshold
+PASS: supplemental request asserts when loop inactive and Wi-Fi demand valid
+PASS: interrupt latches on Wi-Fi demand rising edge
+PASS: level supplemental request remains high after IRQ clear
+PASS: edge-latched IRQ clears even while demand level remains high
+PASS: packet with bad tag is rejected and count remains 10
+PASS: security status reports last tag check failed
+PASS: replayed sequence number is rejected
+PASS: security status reports replayed sequence not fresh
+PASS: SPI cannot write threshold; threshold remains bus-owned
+PASS: SPI cannot write CTRL; enable remains bus-owned
+PASS: loop detect status follows active loop input after synchronization
+PASS: congestion can remain high while loop detector is active
+PASS: active loop detector suppresses supplemental Wi-Fi request
+PASS: supplemental request returns after loop is stably inactive
+PASS: new Wi-Fi demand rising edge reasserts IRQ after loop suppression ends
+PASS: IRQ clears after second demand event
+PASS: Wi-Fi reading becomes invalid after timeout expires
+PASS: congestion clears after Wi-Fi timeout
+PASS: supplemental request clears after Wi-Fi timeout
+
+ALL TESTS PASSED
+
+tb_tqvp_spi_traffic4.v:326: $finish called at 44460000 (1ps)
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things4>write_json tqvp_spi_traffic4.json
+'write_json' is not recognized as an internal or external command,
+operable program or batch file.
+
+[OSS CAD Suite] C:\Users\moral\Desktop\Things4>gtkwave tb_tqvp_spi_traffic4.vcd
+
+GTKWave Analyzer v3.4.0 (w)1999-2022 BSI
+
+[0] start time.
+[44460000] end time.
