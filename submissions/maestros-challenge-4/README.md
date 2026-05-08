@@ -11,7 +11,7 @@
 - **Mentor**: Harish Kumar Dharavath [harrydhara16@arizona.edu]
 
 ## Challenge Summary
-  [TO DO]
+  The goal of this challenge was to take the secure design from challenge 3 and turn it into a final physical layout. While we already had passing DRC and LVS checks, we wanted to ensure as little vioaltions as possible
 
 ## Key Features
 - Feature 1: 

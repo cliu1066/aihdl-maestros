@@ -1,7 +1,7 @@
 # AI-HDL Challenge 4 Submission Form
 
 ## Basic Information
-- **Submission Date**: 
+- **Submission Date**: 2026-05-07
 - **Challenge Number**: 4
 - **Team Name**: Maestros
 - **Team ID**: [Assigned during registration]
@@ -14,33 +14,32 @@
 | April Morales | Team Member | [aprilmorales@arizona.edu] | 33.3% |
 
 ## Design Specifications Met
-- [ ] All required functionality implemented
-- [ ] FPGA implementation successful
-- [ ] Timing requirements met
-- [ ] Resource constraints satisfied
-- [ ] All test cases pass
+- [X] All required functionality implemented
+- [X] FPGA implementation successful
+- [X] Timing requirements met
+- [X] Resource constraints satisfied
+- [X] All test cases pass
 
 ## AI Tool Usage Declaration
 - **Primary AI Tool**: ChatGPT-4, Claude, Gemini
 - **Total Conversation Sessions**: 5+
-- **Estimated AI-Generated Code %**: [Percentage]
-- **Manual Modifications Made**: 
+- **Estimated AI-Generated Code %**: 100%
+- **Manual Modifications Made**: N/A
 
 ## Special Considerations
-- **Bonus Features Implemented**: Interfacing with ESP32 WiFi in addition to SPI, resort to inductive detection when no
-    WiFi detected.
-- **Known Issues**: N/A
-- **Future Improvements**: [What would you do differently]
+- **Bonus Features Implemented**: none since design 3
+- **Known Issues**: 16 max fanout violations needing RTL changes to fix
+- **Future Improvements**: To limit the max fanout errors, we could have staged the reset fanning out to all flip-flops explicitly in RTL, selecting a larger die area to give the placer more breathing room, guiding CTS configuration, and setting a more timing-aggressive synthesis strategy from the start.
 
 ## Verification Checklist
-- [ ] All source files compile without errors
-- [ ] Testbenches run successfully
-- [ ] FPGA implementation verified on hardware
-- [ ] AI interaction logs are complete
-- [ ] Documentation is thorough and clear
+- [X] All source files compile without errors
+- [X] Testbenches run successfully
+- [X] FPGA implementation verified on hardware
+- [X] AI interaction logs are complete
+- [X] Documentation is thorough and clear
 
 ## Team Statement
 We certify that this submission represents our original work, completed according to AI-HDL rules and academic integrity guidelines. All AI interactions have been logged and submitted.
 
 **Team Representative**: Maestros
-**Date**: []
+**Date**: 2026-05-07
