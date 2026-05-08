@@ -69,13 +69,13 @@
 ## AI Tools Used
 - Primary LLM: ChatGPT-4, Claude, Gemini
 - Additional tools: N/A
-- Total AI interactions: 5+
+- Total AI interactions: 21
 
 ## Results Summary
 - **Functionality**: Pass
-- **FPGA Implementation**: [Success/Failure]
-- **Resource Usage**: [LUTs, FFs, DSPs used]
-- **Timing**: [Max frequency achieved]
+- **FPGA Implementation**: Success
+- **Resource Usage**: 695 cells, Area = 8155.3216 μm^2
+- **Timing**: 177.84 MHz
 
 ## Innovation Highlights
 The final TinyQV peripheral implements a security-hardened supplemental demand detector designed to coexist with an existing inductive-loop traffic-light controller. An ESP32 estimates nearby vehicle density through WiFi probe request counting and delivers this data to TinyQV over a hardware SPI link. Every packet carries a CRC8 authentication tag computed over the key, command, data, and a sequence number, allowing TinyQV to verify both authenticity and freshness in hardware with no software involvement. The CRC is computed incrementally — one byte per clock cycle — keeping the combinatorial depth at 8 gate levels per boundary and meeting  sky130A timing closure requirements.

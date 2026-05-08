@@ -4792,3 +4792,159 @@ Priority Low:
   side-channel leakage.
 - Expose wifi_timeout as a readable field in REG_SECURITY so firmware can
   monitor time-to-expiry without needing to know WIFI_TIMEOUT_MAX at runtime.
+  
+
+## Conversation 21: Calculate Max Frequency
+**Timestamp**:  2026-05-07 20:10:55
+**Tool**: Gemini
+**Purpose**: Find max frequency achieved by design
+
+**Prompt**:
+knowing my openlane config.json :
+{
+    "DESIGN_NAME": "tqvp_spi_traffic3",
+    "VERILOG_FILES": "dir::src/*.v",
+    "CLOCK_PERIOD": 10,
+    "CLOCK_PORT": "clk",
+    "CLOCK_NET": "ref::$CLOCK_PORT",
+    "FP_PDN_VOFFSET": 7,
+    "FP_PDN_HOFFSET": 7,
+    "FP_PIN_MODE": 1,
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 300 300",
+    "FP_PDN_SKIPTRIM": true,
+    "pdk::sky130*": {
+        "FP_CORE_UTIL": 45,
+        "scl::sky130_fd_sc_hd": {
+            "CLOCK_PERIOD": 10
+        },
+        "scl::sky130_fd_sc_hdll": {
+            "CLOCK_PERIOD": 10
+        },
+        "scl::sky130_fd_sc_hs": {
+            "CLOCK_PERIOD": 10
+        },
+        "scl::sky130_fd_sc_ls": {
+            "CLOCK_PERIOD": 10,
+            "MAX_FANOUT_CONSTRAINT": 5
+        },
+        "scl::sky130_fd_sc_ms": {
+            "CLOCK_PERIOD": 10
+        }
+    },
+    "pdk::gf180mcu*": {
+        "CLOCK_PERIOD": 24.0,
+        "FP_CORE_UTIL": 40,
+        "MAX_FANOUT_CONSTRAINT": 4,
+        "PL_TARGET_DENSITY": 0.5
+    }
+}
+and synthesis results:
+===========================================================================
+report_tns
+============================================================================
+tns 0.00
+
+===========================================================================
+report_wns
+============================================================================
+wns 0.00
+
+===========================================================================
+report_worst_slack -max (Setup)
+============================================================================
+worst slack 4.38
+
+===========================================================================
+report_worst_slack -min (Hold)
+============================================================================
+worst slack 0.10
+
+calculate max frequency achieved
+
+**Response**:
+To calculate the maximum frequency achieved by your tqvp_spi_traffic3 design, we look at the relationship between your target clock period and the remaining setup slack.
+
+
+Frequency Calculation
+
+
+1. Variables from your Reports
+
+
+Target Clock Period ( $T_{clk}$ ):  $10 ns$  (defined in config.json)
+
+Worst Setup Slack ( $S_{setup}$ ):  $4.38 ns$  (from synthesis report)
+
+
+2. Determine Minimum Clock Period ( $T_{min}$ )
+
+
+The setup slack represents the "extra" time available in your clock cycle. To find the absolute fastest the circuit can run, we subtract this slack from the current period:
+
+
+$$
+T_{min}=T_{clk}-S_{setup}
+$$
+
+
+$$
+T_{min}=10 ns-4.38 ns=5.62 ns
+$$
+
+
+3. Calculate Maximum Frequency ( $F_{max}$ )
+
+
+Frequency is the reciprocal of the minimum clock period ( $F=1/T$ ):
+
+
+$$
+F_{max}=\frac{1}{T_{min}}
+$$
+
+
+$$
+F_{max}=\frac{1}{5.62\times 10^{-9} s}
+$$
+
+
+$$
+F_{max}\approx 177.94 MHz
+$$
+
+
+
+📈 Analysis of Results
+
+Metric
+Value
+Significance
+Current Frequency
+$100 MHz$
+The frequency your config.json currently targets.
+Max Frequency
+** $177.94 MHz$ **
+The theoretical limit for this specific logic synthesis.
+WNS / TNS
+$0.00$
+Confirms all paths met the  $100 MHz$  requirement.
+Hold Slack
+$0.10 ns$
+Positive, but thin. Hold slack does not affect  $F_{max}$  but is critical for functionality.
+
+Important Note for your Sprint
+
+
+While you achieved ** $177.94 MHz$ ** at the synthesis stage, this number is an optimistic estimate. As you move into Week 1 (Placement and Routing), the following will happen:
+
+
+Net Capacitance: Actual metal wires have resistance and capacitance that weren't fully accounted for in synthesis.
+
+Clock Skew: Once you run Clock Tree Synthesis (CTS), the clock signal won't hit every flip-flop at the exact same time.
+
+Congestion: If your DIE_AREA is too tight ( $300\times 300$ ), the router might take longer paths to avoid obstacles, increasing delay.
+
+
+Recommendation: Since you have a healthy margin ( $4.38 ns$ ), you are in a great position to proceed to floorplanning. If your slack was near  $0.1 ns$  now, it would likely turn negative (timing violation) after routing.
+
