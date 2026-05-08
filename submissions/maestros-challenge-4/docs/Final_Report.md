@@ -10,7 +10,7 @@
 * **Team ID:** [Assigned during registration]
 * **Institution:** University of Arizona
 * **Division:** Lower
-* **Mentor:** Harish Kumar Dharavath [[harrydhara16@arizona.edu](mailto:harrydhara16@arizona.edu)]
+* **Mentor:** Harish Kumar Dharavath [[harrydhara16@arizona.edu]]
 
 ## Team Members
 
