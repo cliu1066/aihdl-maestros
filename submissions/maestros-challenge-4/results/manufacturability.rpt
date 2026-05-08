@@ -1,0 +1,19 @@
+Design Name: tqvp_spi_traffic3
+Run Directory: /openlane/designs/test/runs/RUN_2026.05.08_04.56.29
+----------------------------------------
+
+Magic DRC Summary:
+Source: /openlane/designs/test/runs/RUN_2026.05.08_04.56.29/reports/signoff/drc.rpt
+Total Magic DRC violations is 0
+----------------------------------------
+
+LVS Summary:
+Source: /openlane/designs/test/runs/RUN_2026.05.08_04.56.29/logs/signoff/43-tqvp_spi_traffic3.lef.lvs.log
+Number of nets: 865                        |Number of nets: 865                        
+Design is LVS clean.
+----------------------------------------
+
+Antenna Summary:
+Source: /openlane/designs/test/runs/RUN_2026.05.08_04.56.29/logs/signoff/45-arc.log
+Pin violations: 1
+Net violations: 1
